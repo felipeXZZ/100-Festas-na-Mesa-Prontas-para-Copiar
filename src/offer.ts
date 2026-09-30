@@ -9,8 +9,6 @@
  *  pacote inicial do navegador e só precisa destes números, não do texto
  *  da página inteira.
  *
- *  ⚠️ ANTES DE PUBLICAR: tudo marcado PENDENTE veio da oferta anterior
- *  ("150 Festas Infantis") e NÃO está confirmado para esta oferta.
  * ===================================================================== */
 
 export const OFFER_NAME = "150 Festas na Mesa Prontas para Copiar";
@@ -37,22 +35,21 @@ export const brl = (v: number) => `R$${reais(v)}`;
 /*  CHECKOUT                                                           */
 /* ------------------------------------------------------------------ */
 /*
- * ⚠️ PENDENTE — OS TRÊS LINKS ABAIXO SÃO DA OFERTA "150 FESTAS INFANTIS".
- * Não são o checkout desta oferta: quem comprar por eles recebe o produto
- * antigo. Troque pelas URLs dos produtos "150 Festas na Mesa" antes de
- * publicar. O domínio precisa continuar batendo com CHECKOUT_HOST em
+ * Checkouts desta oferta na GGCheckout. Cada link precisa cobrar o mesmo
+ * valor do PRICES correspondente — mudou um preço aqui, mude no painel da GG
+ * também. O domínio precisa continuar batendo com CHECKOUT_HOST em
  * Tracking.tsx (hoje ggcheckout.app), senão as UTMs e o InitiateCheckout
  * deixam de ser enviados no clique.
  */
 
-/** Pacote Completo (PRICES.premium). ⚠️ PENDENTE: link da oferta anterior. */
+/** Pacote Completo — R$ 19,90 (PRICES.premium). */
 export const CHECKOUT_URL =
-  "https://ggcheckout.app/checkout/v5/TrDo8Xg6jiuCWxmTrXEi";
+  "https://ggcheckout.app/checkout/v5/mIRsaapMHDN8AeqSiOGw";
 
-/** Pacote Básico (PRICES.basic). ⚠️ PENDENTE: link da oferta anterior (entregava 50 festas). */
+/** Pacote Básico — R$ 5,99 (PRICES.basic). */
 export const BASIC_CHECKOUT_URL =
-  "https://ggcheckout.app/checkout/v5/dHBGUyfqTCc1FSzI0XPk";
+  "https://ggcheckout.app/checkout/v5/u8hInnL0pgjnbb12d0Qb";
 
-/** Upsell do popup (PRICES.upsell). ⚠️ PENDENTE: link da oferta anterior. */
+/** Upsell do popup — R$ 10,00 (PRICES.upsell). */
 export const UPSELL_CHECKOUT_URL =
-  "https://ggcheckout.app/checkout/v5/GwyvIf2cHvXUvPxPInpC";
+  "https://ggcheckout.app/checkout/v5/FA8la3hPUulwkHSkLu6a";

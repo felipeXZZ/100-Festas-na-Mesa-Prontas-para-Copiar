@@ -17,10 +17,9 @@
 /*  OFERTA — nome, preços e checkout vivem em src/offer.ts             */
 /* ------------------------------------------------------------------ */
 /*
- * ⚠️ Os links de checkout ainda são os da oferta "150 Festas Infantis" —
- * ver o aviso PENDENTE em src/offer.ts. Mudou um preço lá? Os textos daqui
- * que usam `brl()`/`reais()` acompanham sozinhos; confira só os valores
- * "De R$…" riscados, que são texto fixo.
+ * Mudou um preço em src/offer.ts? Os textos daqui que usam `brl()`/`reais()`
+ * acompanham sozinhos; confira só os valores "De R$…" riscados, que são
+ * texto fixo, e o valor cobrado no link de checkout correspondente.
  */
 import { PRICES, brl, reais } from "./offer";
 export {
@@ -40,11 +39,9 @@ export const BACK_REDIRECT_URL = "https://meubackredirect.com.br"; // REVISAR
 
 /**
  * Domínio público da página (metadados, canonical, sitemap e robots).
- * ⚠️ PENDENTE: ainda é o domínio da oferta "150 Festas Infantis". Troque
- * pelo domínio desta oferta antes de publicar — senão o canonical aponta
- * para o site antigo.
+ * Sem barra no final: os outros endereços são montados a partir daqui.
  */
-export const SITE_URL = "https://150festasinfantis.vercel.app"; // REVISAR
+export const SITE_URL = "https://150festasnamesaparacopiar.vercel.app";
 
 /* ------------------------------------------------------------------ */
 /*  Marca / rodapé                                                     */
