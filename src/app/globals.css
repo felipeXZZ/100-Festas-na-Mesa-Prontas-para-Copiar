@@ -1,0 +1,443 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens — tema AZUL (CTA verde)                              */
+/*  Off-white azulado · azul claro · azul royal · azul profundo ·      */
+/*  dourado · verde de confirmação · texto quase preto azulado.        */
+/*  Os nomes dos tokens (purple/plum/lilac/orchid) são históricos —    */
+/*  mantidos para não quebrar as classes; os VALORES é que mandam.     */
+/*  Edite as cores aqui — nada de cor hardcoded nos componentes.       */
+/* ------------------------------------------------------------------ */
+:root {
+  /* Fundos claros. As dobras claras usam SÓ dois fundos, alternando:
+     `cream` (off-white quente) e branco puro. `sand`/`lilac` não são mais
+     fundo de dobra — são tintas para elementos pequenos (chips, cards,
+     itens do FAQ) sobre esses dois fundos. */
+  --color-cream:      #F5F1EB; /* off-white quente — dobra clara A          */
+  --color-sand:       #EAE3D8; /* tinta mais fechada — chips e cards        */
+  --color-lilac:      #F2ECE3; /* tinta suave — itens do FAQ, ícones        */
+  --color-green-soft: #E9F6EE; /* verde suave — bolinhas de check           */
+
+  /* Fundos escuros (seções de respiro e contraste) */
+  --color-plum:       #0B1E5B; /* azul profundo — seções escuras            */
+  --color-plum-deep:  #071440; /* azul quase preto — rodapé                 */
+
+  /* Acentos */
+  --color-purple:     #3B82F6; /* azul vivo — formas, pontos, ícones        */
+  --color-purple-ink: #1D4ED8; /* azul escuro — TEXTO destacado no claro (6,3:1) */
+  --color-orchid:     #A5C4F5; /* azul médio — brilhos decorativos          */
+  --color-gold:       #F0B429; /* dourado/âmbar — selos e destaque no escuro */
+
+  /* Verde de confirmação (checks e garantia) */
+  --color-green:      #34A96A; /* decorativo                                 */
+  --color-green-ink:  #1F7A45; /* TEXTO/ícone de "check" no claro (5,2:1)   */
+
+  /* CTA — VERDE VIVO (pedido do cliente). Atenção: com o texto BRANCO o
+     contraste fica em ~2,8:1, abaixo dos 4,5:1 da WCAG AA. É uma escolha
+     de conversão; se quiser voltar ao verde acessível use #15803D/#0E6330. */
+  --color-cta:        #22B455;
+  --color-cta-dark:   #159B45;
+
+  /* Texto */
+  --color-ink:        #1A2338; /* corpo sobre fundo claro (14,5:1)          */
+  --color-ink-soft:   #4C5A72; /* secundário sobre fundo claro (6,5:1)      */
+  --color-ink-invert: #DCE6F7; /* secundário sobre fundo escuro (12,6:1)    */
+
+  /* Bordas e alerta */
+  --color-border:     #E7E0D5; /* borda dos cards (neutra quente)           */
+  --color-danger:     #C62B24; /* preço antigo riscado (fundo claro)        */
+  --color-danger-soft:#FF8F84; /* preço antigo riscado (fundo escuro)       */
+  /* Vermelho VIVO — faixa e botão de recusa do popup de upsell. É mais
+     saturado que `danger` de propósito: ali o vermelho é o "pare" da oferta,
+     não um detalhe de preço. Continua ≥4,5:1 com texto branco.            */
+  --color-danger-vivid:#E01B24;
+
+  --background: var(--color-cream);
+  --foreground: var(--color-ink);
+}
+
+/* Expõe os tokens ao Tailwind (bg-cream, text-purple, bg-cta, etc.) */
+@theme inline {
+  --color-cream:      var(--color-cream);
+  --color-sand:       var(--color-sand);
+  --color-lilac:      var(--color-lilac);
+  --color-green-soft: var(--color-green-soft);
+  --color-plum:       var(--color-plum);
+  --color-plum-deep:  var(--color-plum-deep);
+  --color-purple:     var(--color-purple);
+  --color-purple-ink: var(--color-purple-ink);
+  --color-orchid:     var(--color-orchid);
+  --color-gold:       var(--color-gold);
+  --color-green:      var(--color-green);
+  --color-green-ink:  var(--color-green-ink);
+  --color-cta:        var(--color-cta);
+  --color-cta-dark:   var(--color-cta-dark);
+  --color-ink:        var(--color-ink);
+  --color-ink-soft:   var(--color-ink-soft);
+  --color-ink-invert: var(--color-ink-invert);
+  --color-border:     var(--color-border);
+  --color-danger:     var(--color-danger);
+  --color-danger-soft:var(--color-danger-soft);
+  --color-danger-vivid:var(--color-danger-vivid);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Fonte única (corpo + títulos) */
+  --font-sans:    var(--font-body);
+  --font-display: var(--font-body);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), system-ui, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Títulos encorpados */
+.font-display {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Fonte grossa dos botões de CTA */
+.font-cta {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+}
+
+/* Preço antigo — sempre riscado. */
+.old-price {
+  color: var(--color-danger);
+  text-decoration-line: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--color-danger);
+}
+
+/* Variante para fundo escuro (card do Plano Completo). */
+.old-price-dark {
+  color: var(--color-danger-soft);
+  text-decoration-line: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--color-danger-soft);
+}
+
+/* Evita "viúvas" e melhora a quebra dos títulos grandes */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Realce colorido dentro dos headlines */
+.hl-purple {
+  color: var(--color-purple-ink);
+}
+.hl-gold {
+  color: var(--color-gold);
+}
+/* Verde de "bom negócio" — usado no título do popup de upsell, onde a cor
+   precisa dizer "economia" e não "marca". */
+.hl-green {
+  color: var(--color-green-ink);
+}
+
+/* Traço à mão livre por baixo da palavra destacada do headline */
+.hl-underline {
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-gold) 55%, transparent) 0 0.32em,
+    transparent 0.32em
+  );
+  background-repeat: no-repeat;
+  padding-inline: 0.06em;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Animações decorativas — SÓ depois do primeiro gesto                */
+/* ------------------------------------------------------------------ */
+/* Todas as animações infinitas da página (pulso e brilho do CTA, float do
+   mockup, os dois trilhos do carrossel) nascem PAUSADAS e só destravam
+   no primeiro gesto da visitante (rolar, tocar, clicar, teclar), com teto
+   de 10s depois do `load` — o script no fim do <body> põe a classe
+   `animar` no <html>. Ver lá o porquê do gesto (Speed Index).
+
+   Por que: elas rodavam desde o primeiro frame e disputavam a thread com a
+   pintura da primeira dobra. No trace do PageSpeed isso aparecia como LCP de
+   5,5s com "render delay" de ~5s (a imagem já estava baixada em 75ms!) e
+   3,5s de paint/composite. Pausadas até o `load`, o navegador pinta a hero
+   primeiro e só então gasta frame com enfeite.
+
+   Cada animação está no seu 0% enquanto pausada, então nada aparece fora do
+   lugar: float em translateY(0), trilho em translateX(0), brilho do CTA
+   fora do botão (clipado pelo overflow-hidden). */
+.cta-pulse,
+.cta-attention::before,
+.hero-float,
+.marquee-track,
+.vsl-batida,
+.vsl-rastro {
+  animation-play-state: paused;
+}
+
+html.animar :is(.cta-pulse, .hero-float, .marquee-track, .vsl-batida, .vsl-rastro),
+html.animar .cta-attention::before {
+  animation-play-state: running;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Play da VSL — batida + rastro                                      */
+/* ------------------------------------------------------------------ */
+/* O botão bate como um coração (duas pancadas e uma pausa) e solta anéis
+   que crescem e somem — é o que diz "isto é um vídeo, toque aqui" sem
+   precisar de mais texto.
+
+   Só `transform` e `opacity`: as duas propriedades que o navegador compõe
+   na GPU, sem repintar nada. Um `box-shadow` animado aqui repintaria o
+   cartão inteiro do vídeo a cada frame (foi o que já tirou o glow do CTA
+   principal desta página).
+
+   Os anéis são irmãos do botão, e não `::before` dele: assim eles crescem
+   a partir do mesmo centro sem arrastar o ícone junto na escala. */
+.vsl-batida {
+  animation: vsl-batida 2.6s ease-in-out infinite;
+}
+
+@keyframes vsl-batida {
+  0%,
+  22%,
+  100% {
+    transform: scale(1);
+  }
+  8% {
+    transform: scale(1.09);
+  }
+  15% {
+    transform: scale(1.02);
+  }
+  20% {
+    transform: scale(1.06);
+  }
+}
+
+.vsl-rastro {
+  animation: vsl-rastro 2.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* O segundo anel sai no contratempo da batida: é o que vira "rastro" em vez
+   de um anel solitário piscando. */
+.vsl-rastro-2 {
+  animation-delay: 0.42s;
+}
+
+@keyframes vsl-rastro {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  60% {
+    opacity: 0;
+  }
+  60%,
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Ênfase do CTA principal — pulso suave                              */
+/* ------------------------------------------------------------------ */
+.cta-pulse {
+  animation: cta-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes cta-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.022);
+  }
+}
+
+/* Glow do CTA — FIXO, não mais pulsante.
+   Era um `box-shadow` animado, a única propriedade animada da página que o
+   navegador não consegue compor: cada frame repintava o botão inteiro, e o
+   botão divide o mesmo tile com a imagem de LCP logo acima. Era o que o
+   PageSpeed acusava em "evitar animações não compostas".
+   O valor abaixo é o pico da antiga animação: o botão continua com o mesmo
+   halo verde forte, e quem dá o movimento é o `cta-pulse` (escala, essa sim
+   composta) junto com o brilho que atravessa. */
+.cta-attention {
+  box-shadow: 0 14px 34px -6px rgba(34, 180, 85, 0.8);
+}
+
+@keyframes cta-shine {
+  0% {
+    transform: translateX(0) skewX(-20deg);
+  }
+  60%,
+  100% {
+    transform: translateX(700%) skewX(-20deg);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Mockup da hero — flutuação lenta                                    */
+/* ------------------------------------------------------------------ */
+/* Só translate/rotate (composited): a imagem é o LCP da página e não
+   pode disparar layout a cada frame. Amplitude pequena de propósito —
+   é para dar vida, não para chamar atenção pra longe do botão. */
+.hero-float {
+  animation: hero-float 6s ease-in-out infinite;
+}
+
+/* `will-change` só DEPOIS do load: antes disso ele promove a imagem de LCP a
+   uma camada própria, e o navegador acaba rasterizando essa camada antes de
+   conseguir mostrar a primeira dobra. Com a animação parada, a promoção não
+   serve para nada mesmo. */
+html.animar .hero-float {
+  will-change: transform;
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-0.6deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-pulse,
+  .hero-float,
+  .vsl-batida {
+    animation: none;
+  }
+  /* Os anéis somem de vez: parados no 0% eles ficariam como dois círculos
+     estáticos em volta do botão. */
+  .vsl-rastro {
+    display: none;
+  }
+  .cta-attention::before {
+    animation: none !important;
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Marquee — faixa de temas em loop contínuo                          */
+/* ------------------------------------------------------------------ */
+.marquee-track {
+  animation: marquee-scroll var(--marquee-duration, 25s) linear infinite;
+}
+
+/* Faixa que anda para o outro lado (carrossel duplo da vitrine). */
+.marquee-reverse {
+  animation-direction: reverse;
+}
+
+@media (hover: hover) {
+  .marquee-mask:hover .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Bordas esfumaçadas: a faixa "nasce" e "morre" na lateral em vez de bater
+   num corte seco — o que faz a fila parecer maior do que o que cabe na tela. */
+.edge-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  /* Sem animação a faixa ficaria travada no primeiro card: devolve o
+     controle para o dedo/scroll (a barra continua escondida). */
+  .marquee-mask {
+    overflow-x: auto;
+  }
+}
+
+.eyebrow {
+  letter-spacing: 0.14em;
+}
+
+/* Esconde a barra de rolagem dos carrosséis horizontais (mantém o swipe) */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Seções abaixo da primeira dobra — pular render fora da tela        */
+/* ------------------------------------------------------------------ */
+/* A página tem ~12.000px de altura e o navegador fazia estilo + layout +
+   pintura dela INTEIRA antes de conseguir mostrar o primeiro pixel: no trace
+   isso aparecia como ~1s de `styleLayout` e um LCP que só chegava junto com o
+   primeiro frame, muito depois de a imagem da hero já ter baixado.
+
+   `content-visibility: auto` faz o navegador pular esse trabalho enquanto a
+   seção está fora da tela e refazê-lo quando ela se aproxima.
+
+   `contain-intrinsic-size: auto <altura>` é o que segura a barra de rolagem
+   no lugar: `auto` manda o navegador LEMBRAR o tamanho real depois da
+   primeira vez, e a altura declarada é o palpite usado até lá. Os valores
+   abaixo são a altura da CAIXA DE CONTEÚDO (sem o padding da seção, que o
+   navegador soma por fora — estimar a altura total faz o padding contar duas
+   vezes), medidos na página real a 412px de largura com todas as imagens já
+   carregadas.
+
+   Precisão importa: a rolagem suave dos CTAs até `#planos` atravessa
+   seções ainda não renderizadas, e todo erro de estimativa vira erro de
+   pouso. Com o padding contado duas vezes o clique passava 156px do alvo.
+   Se uma seção mudar muito de tamanho, meça de novo e ajuste aqui.
+
+   ⚠️ NÃO ponha esta classe numa seção que renderize um diálogo, popup ou
+   qualquer descendente `position: fixed`. `content-visibility` aplica
+   `contain: layout paint`, e um elemento com `contain: layout` vira BLOCO DE
+   CONTENÇÃO dos descendentes fixos: em vez de se posicionar pela janela, o
+   diálogo se ancora na seção e é RECORTADO por ela. Foi o que aconteceu com
+   a seção de planos — o popup do plano Básico (`BasicCtaWithUpsell`, em
+   UpsellPopup.tsx) abria com o topo cortado, sem a faixa vermelha e sem o X
+   de fechar, deixando a pessoa presa na frente do checkout. Por isso a seção
+   de planos está de fora desta lista, e é o único lugar da página que
+   renderiza diálogo de dentro de uma seção.
+
+   As camadas que vivem fora do <main> (o popup automático e o balão de
+   compra, ver CamadasDiferidas) não têm esse problema: nenhuma seção é
+   ancestral delas. */
+.dobra-diferida {
+  content-visibility: auto;
+  contain-intrinsic-size: auto var(--altura-estimada, 1000px);
+}
