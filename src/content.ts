@@ -846,15 +846,14 @@ export const plans = {
      * arte que mostra o guia JUNTO dos 5 bônus — a diferença entre os planos
      * aparece na imagem antes mesmo de o visitante ler a lista.
      *
-     * ⚠️ PENDENTE: a arte antiga (/planopremium150festas.webp) é da oferta
-     * "+150 Festas Infantis". Com `src` vazio entra a capa provisória com o
-     * selo "+ 5 bônus" (ProductCover.tsx), no mesmo quadrado.
+     * Com `src` vazio entra a capa provisória com o selo "+ 5 bônus"
+     * (ProductCover.tsx), no mesmo quadrado.
      */
     image: {
-      src: "",
+      src: "/plano-completo-150-festas-na-mesa.webp",
       width: 1254,
       height: 1254,
-      alt: "Capa do guia 150 Festas na Mesa Prontas para Copiar com os 5 bônus do Pacote Completo",
+      alt: "Guia +150 Festas na Mesa Prontas para Você Copiar com os 5 bônus do Pacote Completo",
     },
     /** ⚠️ PENDENTE: preço "de" riscado herdado da oferta anterior — confirmar. */
     priceFrom: "De R$196",

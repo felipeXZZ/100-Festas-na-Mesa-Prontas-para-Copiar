@@ -20,7 +20,6 @@ componentes. Nome, preços e checkout ficam em `src/offer.ts`.
 |---|---|---|
 | **Preços** | `src/offer.ts` → `PRICES` | Confirmados: Básico R$ 5,99 · Completo R$ 19,90 · popup R$ 10,00. Os checkouts precisam cobrar esses valores. |
 | **Preços "De R$…" riscados** | `content.ts` → `plans.*.priceFrom`, `bonuses.items[].price`, `bonuses.totalValue` | Valores herdados. Confirmar. |
-| **Mockup do Completo** | `content.ts` → `plans.premium.image.src` | Vazio: entra a capa provisória em CSS. Falta a arte com os 5 bônus (1254×1254, fundo transparente). A hero já usa `mockup-150-festas-na-mesa.webp`. |
 | **Vídeo** | `content.ts` → `vsl.videoId` / `vsl.poster` | Vazio: espaço reservado. O vídeo anterior mostrava o material de 150 festas. |
 | **Prova social** | `content.ts` → `hero.badge`, `testimonials.prints`, `purchaseNotifications` | Mantida como estava, a pedido. É da oferta anterior. |
 | **Imagem de compartilhamento (OG)** | `src/app/layout.tsx` | Ainda falta (1200×630). |
