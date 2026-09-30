@@ -653,25 +653,32 @@ export const testimonials = {
    */
   prints: [
     {
-      src: "/prints-avaliacoes/2.webp",
+      src: "/PRINT4.png",
       label:
         "Print de cliente: escolheu um tema pronto e montou a festa. Foto da decoração",
-      width: 1086,
-      height: 1448,
+      width: 1122,
+      height: 1402,
     },
     {
-      src: "/prints-avaliacoes/3.webp",
+      src: "/PRINT3.png",
       label:
         "Print de cliente: o guia ajudou na organização da festa. Foto do resultado final",
       width: 1122,
       height: 1402,
     },
     {
-      src: "/prints-avaliacoes/4.webp",
+      src: "/PRINT2.png",
       label:
         "Print de cliente: copiou o tema do material com facilidade. Foto da decoração",
-      width: 1086,
-      height: 1448,
+      width: 1122,
+      height: 1402,
+    },
+    {
+      src: "/PRINT1.png",
+      label:
+        "Print de cliente: ficou lindo e recomenda o produto. Foto da decoração",
+      width: 1122,
+      height: 1402,
     },
   ],
   /**
