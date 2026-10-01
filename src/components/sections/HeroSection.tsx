@@ -84,12 +84,11 @@ export function HeroSection() {
           {/* O texto do CTA da hero é MAIOR que o dos outros botões: é o
               clique que a dobra inteira existe para conseguir.
 
-              Como ele cresce, três coisas andam juntas para a frase caber em
-              UMA linha até em telas de 360px (onde ela já batia na borda com
-              o tamanho antigo): a fonte é fluida (`clamp`, do 1rem atual no
-              celular pequeno até 1,35rem no desktop), o espaçamento entre
-              letras volta ao normal e o padding lateral encolhe no mobile —
-              os dois devolvem ~30px de largura útil. */}
+              A pedido, o texto ocupa mais do retângulo: fonte fluida
+              (`clamp`, de 1,05rem no celular pequeno até 1,5rem no desktop),
+              espaçamento entre letras normal e padding menor (px-3/py-4 no
+              celular). Em telas de ~360px o rótulo pode quebrar em duas
+              linhas — o `text-balance` do CTAButton deixa as duas iguais. */}
           <div className="cta-pulse mt-8 flex w-full justify-center lg:justify-start">
             <CTAButton
               size="lg"
@@ -99,6 +98,7 @@ export function HeroSection() {
               trackId="hero-plans"
               attention
               shine={false}
+              arrow={false}
               /* Segunda linha DENTRO do botão: o preço. Ver `hero.priceHint`
                  e a prop `subline` do CTAButton. */
               subline={
@@ -106,7 +106,7 @@ export function HeroSection() {
                   <Highlight text={hero.priceHint} tone="bold" />
                 ) : null
               }
-              className="px-5 text-[clamp(1rem,4.6vw,1.35rem)] tracking-normal sm:px-8 sm:text-[1.35rem]"
+              className="px-3 py-4 text-[clamp(1.05rem,4.9vw,1.5rem)] tracking-normal sm:px-6 sm:text-[1.5rem]"
             >
               {hero.cta}
             </CTAButton>

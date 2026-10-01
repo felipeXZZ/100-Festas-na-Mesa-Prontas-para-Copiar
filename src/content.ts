@@ -126,7 +126,7 @@ export const hero = {
   // Fala com os DOIS públicos do mesmo material: quem monta a festa em casa
   // e a decoradora que monta para clientes. `{{trecho}}` sairia em negrito.
   subheadline:
-    "Escolha o tema, siga a lista de compras e monte uma festa linda em cima de uma mesa só, sem improviso. Seja a festa do seu filho ou a do seu cliente.",
+    "Escolha o tema, siga a lista e monte uma festa linda numa mesa só, para o seu filho ou para o seu cliente.",
   cta: "Quero as 150 festas agora",
   /**
    * ENTREGA — única linha abaixo do CTA, com os ícones do WhatsApp e do
@@ -142,10 +142,10 @@ export const hero = {
   delivery:
     "Você recebe tudo na hora, direto no seu [whatsapp] e no seu [email]",
   /**
-   * ⛔ DESLIGADO — preço na primeira dobra, como segunda linha DENTRO do
+   * ✅ LIGADO — preço na primeira dobra, como segunda linha DENTRO do
    * botão verde da hero (ver a prop `subline` do CTAButton). Com o texto
-   * vazio a linha some e o botão volta a ter só o rótulo, que é o estado
-   * atual; nada mais precisa ser mexido.
+   * vazio a linha some e o botão volta a ter só o rótulo.
+   * "A partir de" porque o rótulo fala em 150 festas e R$ 5,99 é o Básico.
    *
    * A ideia era que "custa pouco" é o argumento central da oferta e só
    * aparecia na seção de planos, lá embaixo — quem saía na primeira tela
@@ -155,7 +155,7 @@ export const hero = {
    * Para LIGAR de volta: escreva o texto aqui. `{{trecho}}` sai em negrito e
    * o valor precisa bater com `plans.basic.price` e com `stickyBar.price`.
    */
-  priceHint: "",
+  priceHint: `A partir de {{R$ ${reais(PRICES.basic)}}} · acesso imediato no e-mail`,
   /**
    * MICROBENEFÍCIOS abaixo do mockup — TESTE. Lista vertical com ícone
    * colorido, no formato da referência: só o ÍCONE é azul, o texto fica na
@@ -186,7 +186,7 @@ export const hero = {
    * página desenha a capa provisória (ProductCover.tsx) no mesmo quadrado.
    */
   mockup: {
-    src: "/mockup-150-festas-na-mesa.webp",
+    src: "/mockup-hero-150-festas-v3.webp",
     width: 1254,
     height: 1254,
     alt: "Guia +150 Festas na Mesa Prontas para Você Copiar: capa, páginas de temas, bônus e versão no celular",
