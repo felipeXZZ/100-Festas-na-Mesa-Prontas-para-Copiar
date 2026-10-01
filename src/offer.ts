@@ -23,7 +23,7 @@ export const PRICES = {
   /** Pacote Completo — 150 projetos + 5 bônus. ✅ Confirmado. */
   premium: 19.9,
   /** Popup de upsell — Completo com desconto. ✅ Confirmado. */
-  upsell: 14.9,
+  upsell: 10,
 };
 
 /** 10 → "10,00" */
@@ -50,6 +50,6 @@ export const CHECKOUT_URL =
 export const BASIC_CHECKOUT_URL =
   "https://ggcheckout.app/checkout/v5/u8hInnL0pgjnbb12d0Qb";
 
-/** Upsell do popup — R$ 14,90 (PRICES.upsell). */
+/** Upsell do popup — R$ 10,00 (PRICES.upsell). */
 export const UPSELL_CHECKOUT_URL =
   "https://ggcheckout.app/checkout/v5/FA8la3hPUulwkHSkLu6a";
