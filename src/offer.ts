@@ -35,21 +35,21 @@ export const brl = (v: number) => `R$${reais(v)}`;
 /*  CHECKOUT                                                           */
 /* ------------------------------------------------------------------ */
 /*
- * Checkouts desta oferta na GGCheckout. Cada link precisa cobrar o mesmo
- * valor do PRICES correspondente — mudou um preço aqui, mude no painel da GG
+ * Checkouts desta oferta na Wiapy. Cada link precisa cobrar o mesmo
+ * valor do PRICES correspondente — mudou um preço aqui, mude no painel da Wiapy
  * também. O domínio precisa continuar batendo com CHECKOUT_HOST em
- * Tracking.tsx (hoje ggcheckout.app), senão as UTMs e o InitiateCheckout
+ * Tracking.tsx (hoje pay.wiapy.com), senão as UTMs e o InitiateCheckout
  * deixam de ser enviados no clique.
  */
 
 /** Pacote Completo — R$ 19,90 (PRICES.premium). */
 export const CHECKOUT_URL =
-  "https://ggcheckout.app/checkout/v5/mIRsaapMHDN8AeqSiOGw";
+  "https://pay.wiapy.com/iBacz6Sxymjr";
 
 /** Pacote Básico — R$ 5,99 (PRICES.basic). */
 export const BASIC_CHECKOUT_URL =
-  "https://ggcheckout.app/checkout/v5/u8hInnL0pgjnbb12d0Qb";
+  "https://pay.wiapy.com/gPwDgI1skAIN";
 
 /** Upsell do popup — R$ 10,00 (PRICES.upsell). */
 export const UPSELL_CHECKOUT_URL =
-  "https://ggcheckout.app/checkout/v5/FA8la3hPUulwkHSkLu6a";
+  "https://pay.wiapy.com/y_4Nnf4QGl4";
