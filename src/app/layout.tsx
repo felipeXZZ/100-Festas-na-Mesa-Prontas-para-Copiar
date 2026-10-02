@@ -207,6 +207,36 @@ export default function RootLayout({
           }}
         />
 
+        {/* `__aposGesto(fn)`: roda `fn` UMA vez, no primeiro gesto da
+            visitante (rolar, tocar, clicar, teclar) ou 5s depois de ser
+            chamada, o que vier antes. É o portão dos três scripts pesados
+            de rastreamento (Meta Pixel, pixel da Utmify e Clarity).
+
+            Por quê: medido no Lighthouse mobile, fbevents.js + as configs
+            dos pixels da Meta somavam ~1,1s de JavaScript em tarefas longas
+            logo depois do `load` — a maior parte do Total Blocking Time da
+            página. `lazyOnload` sozinho não bastava: ele só tira o script da
+            frente do LCP, mas a tarefa longa continuava caindo dentro da
+            janela que o PageSpeed mede.
+
+            O custo: quem fecha a página em menos de ~5s sem tocar em nada
+            não gera PageView. Os stubs (`fbq`, `clarity`) são criados na
+            hora, então toda chamada feita antes do script chegar fica na
+            fila e é enviada quando ele carrega — nada se perde de quem fica.
+            Inline e não `next/script`: precisa existir antes dos
+            `lazyOnload` abaixo, que o chamam. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(w){var E=['scroll','wheel','touchstart','pointerdown','keydown'];" +
+              "w.__aposGesto=function(fn){var feito=false,t;" +
+              "function go(){if(feito)return;feito=true;clearTimeout(t);" +
+              "for(var i=0;i<E.length;i++)w.removeEventListener(E[i],go,true);fn()}" +
+              "for(var i=0;i<E.length;i++)w.addEventListener(E[i],go,{capture:true,passive:true});" +
+              "t=setTimeout(go,5000)}})(window);",
+          }}
+        />
+
         {/* Pixel da Utmify já atualizado para a conta desta oferta
             (6abc7fa45ab9e61c3f4efef0). */}
 
@@ -238,7 +268,7 @@ export default function RootLayout({
             é aqui que se volta para `afterInteractive` (e o LCP volta junto). */}
         {/* ⚠️ E, além do `lazyOnload`, o clarity.js só é PEDIDO no primeiro
             gesto da visitante (rolar, tocar, clicar, teclar) ou 5s depois do
-            `load`, o que vier antes. Mesmo depois do `load`, a tarefa longa
+            `load`, o que vier antes (`__aposGesto`, lá em cima). Mesmo depois do `load`, a tarefa longa
             dele caía dentro da janela que o PageSpeed mede e era a maior
             parcela do TBT. O stub `clarity()` é criado na hora, então
             qualquer chamada feita antes fica na fila e não se perde. O
@@ -247,15 +277,10 @@ export default function RootLayout({
           {`
             (function(c,l,a,r,i){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-              var E=["scroll","wheel","touchstart","pointerdown","keydown"],feito=false,tm;
-              function carregar(){
-                if(feito)return;feito=true;clearTimeout(tm);
-                for(var k=0;k<E.length;k++)c.removeEventListener(E[k],carregar,true);
+              c.__aposGesto(function(){
                 var t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 var y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-              }
-              for(var k=0;k<E.length;k++)c.addEventListener(E[k],carregar,{capture:true,passive:true});
-              tm=setTimeout(carregar,5000);
+              });
             })(window, document, "clarity", "script", "y3snimvd08");
           `}
         </Script>
@@ -271,7 +296,13 @@ export default function RootLayout({
             o frame zero, troque para `afterInteractive` — e o LCP volta a
             piorar junto.
 
-            É o snippet oficial da Meta com UMA diferença deliberada: o
+            ⚠️ Além do `lazyOnload`, o fbevents.js só é PEDIDO via
+            `__aposGesto` (ver lá em cima): era a maior tarefa longa da
+            página. O stub, o `init` e o `PageView` rodam na hora e ficam
+            na fila do `fbq` até o script chegar.
+
+            É o snippet oficial da Meta com DUAS diferenças deliberadas
+            (a outra é o `__aposGesto`): o
             `init` e o `PageView` ficam FORA do guard `if(f.fbq)return`. A
             Utmify também injeta o fbevents.js e, como os dois são
             `lazyOnload`, a ordem entre eles não é garantida — com o snippet
@@ -297,9 +328,9 @@ export default function RootLayout({
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
             if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
+            n.queue=[];f.__aposGesto(function(){t=b.createElement(e);t.async=!0;
             t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            s.parentNode.insertBefore(t,s)})}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '881594511471095');
             fbq('trackSingle', '881594511471095', 'PageView');
@@ -316,15 +347,20 @@ export default function RootLayout({
           />
         </noscript>
 
-        {/* Utmify — Pixel de conversão */}
+        {/* Utmify — Pixel de conversão. Também passa pelo `__aposGesto`:
+            o pixel.js dela inicializa o OUTRO pixel da Meta configurado no
+            painel (1572102274047011), e a config dele era mais uma tarefa
+            longa de ~200ms. */}
         <Script id="utmify-pixel" strategy="lazyOnload">
           {`
             window.pixelId = "6abc7fa45ab9e61c3f4efef0";
-            var a = document.createElement("script");
-            a.setAttribute("async", "");
-            a.setAttribute("defer", "");
-            a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-            document.head.appendChild(a);
+            window.__aposGesto(function () {
+              var a = document.createElement("script");
+              a.setAttribute("async", "");
+              a.setAttribute("defer", "");
+              a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+              document.head.appendChild(a);
+            });
           `}
         </Script>
       </body>
