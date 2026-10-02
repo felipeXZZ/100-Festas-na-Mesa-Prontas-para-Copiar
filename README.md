@@ -18,7 +18,7 @@ componentes. Nome, preços e checkout ficam em `src/offer.ts`.
 
 | O quê | Onde | Situação |
 |---|---|---|
-| **Preços** | `src/offer.ts` → `PRICES` | Confirmados: Básico R$ 5,99 · Completo R$ 19,90 · popup R$ 12,99. Os checkouts precisam cobrar esses valores. |
+| **Preços** | `src/offer.ts` → `PRICES` | Confirmados: Básico R$ 5,99 · Completo R$ 19,90 · popup R$ 10,00. Os checkouts precisam cobrar esses valores. |
 | **Preços "De R$…" riscados** | `content.ts` → `plans.*.priceFrom`, `bonuses.items[].price`, `bonuses.totalValue` | Valores herdados. Confirmar. |
 | **Vídeo** | `content.ts` → `vsl.videoId` / `vsl.poster` | Vazio: espaço reservado. O vídeo anterior mostrava o material de 150 festas. |
 | **Prova social** | `content.ts` → `hero.badge`, `testimonials.prints`, `purchaseNotifications` | Mantida como estava, a pedido. É da oferta anterior. |
