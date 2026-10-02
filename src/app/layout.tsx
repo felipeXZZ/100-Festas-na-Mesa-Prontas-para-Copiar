@@ -209,8 +209,8 @@ export default function RootLayout({
 
         {/* `__aposGesto(fn)`: roda `fn` UMA vez, no primeiro gesto da
             visitante (rolar, tocar, clicar, teclar) ou 5s depois de ser
-            chamada, o que vier antes. É o portão dos três scripts pesados
-            de rastreamento (Meta Pixel, pixel da Utmify e Clarity).
+            chamada, o que vier antes. É o portão dos dois scripts pesados
+            de rastreamento (pixel da Utmify e Clarity).
 
             Por quê: medido no Lighthouse mobile, fbevents.js + as configs
             dos pixels da Meta somavam ~1,1s de JavaScript em tarefas longas
@@ -220,9 +220,10 @@ export default function RootLayout({
             janela que o PageSpeed mede.
 
             O custo: quem fecha a página em menos de ~5s sem tocar em nada
-            não gera PageView. Os stubs (`fbq`, `clarity`) são criados na
-            hora, então toda chamada feita antes do script chegar fica na
-            fila e é enviada quando ele carrega — nada se perde de quem fica.
+            não gera PageView. O stub `clarity()` é criado na hora e guarda as
+            chamadas feitas antes do script chegar. O `fbq` NÃO tem stub (ver
+            o pixel da Utmify, abaixo): até o pixel.js carregar ele não
+            existe, e os eventos de lib/track.ts feitos antes disso não saem.
             Inline e não `next/script`: precisa existir antes dos
             `lazyOnload` abaixo, que o chamam. */}
         <script
@@ -285,72 +286,18 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* Meta Pixel (881594511471095) — base code.
+        {/* Utmify — Pixel de conversão. É o ÚNICO pixel da Meta da página: o
+            pixel.js injeta o fbevents.js e inicializa o pixel da Meta
+            configurado no painel da Utmify (1572102274047011). O Meta Pixel
+            próprio (881594511471095) saiu a pedido — com os dois, todo
+            `fbq("track")` fazia broadcast e cada evento chegava em dobro.
 
-            `lazyOnload` pelo mesmo motivo do Clarity e da Utmify: o
-            fbevents.js sobe DEPOIS do `load`, sem TLS handshake nem bytes
-            disputando a imagem da primeira dobra. O custo é perder o
-            PageView de quem abandona antes do `load` — quem sai nessa janela
-            não compra, e o sinal que a campanha realmente otimiza
-            (InitiateCheckout/Purchase) acontece muito depois. Para registrar
-            o frame zero, troque para `afterInteractive` — e o LCP volta a
-            piorar junto.
+            ⚠️ Não crie um stub de `fbq` antes deste script: o snippet da
+            Meta aborta com `if(f.fbq)return`, e o fbevents.js nunca seria
+            carregado.
 
-            ⚠️ Além do `lazyOnload`, o fbevents.js só é PEDIDO via
-            `__aposGesto` (ver lá em cima): era a maior tarefa longa da
-            página. O stub, o `init` e o `PageView` rodam na hora e ficam
-            na fila do `fbq` até o script chegar.
-
-            É o snippet oficial da Meta com DUAS diferenças deliberadas
-            (a outra é o `__aposGesto`): o
-            `init` e o `PageView` ficam FORA do guard `if(f.fbq)return`. A
-            Utmify também injeta o fbevents.js e, como os dois são
-            `lazyOnload`, a ordem entre eles não é garantida — com o snippet
-            cru, se a Utmify chegasse primeiro o `return` mataria o bloco
-            inteiro e ESTE pixel nunca seria inicializado. Fora do guard, o
-            stub só é criado se ainda não existir e o init sempre roda.
-
-            O PageView usa `trackSingle` e não `track`: o pixel.js da
-            Utmify também roda `fbq("init", ...)` para os IDs configurados
-            no painel dela, e um `track` cru faz BROADCAST para TODO pixel
-            inicializado na página — o nosso PageView cairia no pixel da
-            Utmify junto. `trackSingle` entrega só para este ID.
-
-            ⚠️ Isso blinda o nosso lado, não o dela: a Utmify dispara
-            PageView/ViewContent/InitiateCheckout com `fbq("track")`, que
-            continua fazendo broadcast para ESTE pixel. Se o painel da Utmify
-            tiver algum Pixel da Meta configurado, os eventos chegam em
-            dobro — a saída é deixar UM dos dois lados enviando eventos de
-            navegador, não os dois. */}
-        <Script id="meta-pixel" strategy="lazyOnload">
-          {`
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];f.__aposGesto(function(){t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)})}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '881594511471095');
-            fbq('trackSingle', '881594511471095', 'PageView');
-          `}
-        </Script>
-        <noscript>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            alt=""
-            src="https://www.facebook.com/tr?id=881594511471095&ev=PageView&noscript=1"
-          />
-        </noscript>
-
-        {/* Utmify — Pixel de conversão. Também passa pelo `__aposGesto`:
-            o pixel.js dela inicializa o OUTRO pixel da Meta configurado no
-            painel (1572102274047011), e a config dele era mais uma tarefa
-            longa de ~200ms. */}
+            Passa pelo `__aposGesto`: fbevents.js + a config do pixel eram
+            a maior tarefa longa da página. */}
         <Script id="utmify-pixel" strategy="lazyOnload">
           {`
             window.pixelId = "6abc7fa45ab9e61c3f4efef0";
