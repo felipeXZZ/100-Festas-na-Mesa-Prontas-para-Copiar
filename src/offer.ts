@@ -21,9 +21,9 @@ export const PRICES = {
   /** Pacote Básico — 50 projetos. ✅ Confirmado: preço principal. */
   basic: 5.99,
   /** Pacote Completo — 150 projetos + 5 bônus. ✅ Confirmado. */
-  premium: 19.9,
+  premium: 24.9,
   /** Popup de upsell — Completo com desconto. ✅ Confirmado. */
-  upsell: 10,
+  upsell: 12.99,
 };
 
 /** 10 → "10,00" */
@@ -42,7 +42,7 @@ export const brl = (v: number) => `R$${reais(v)}`;
  * deixam de ser enviados no clique.
  */
 
-/** Pacote Completo — R$ 19,90 (PRICES.premium). */
+/** Pacote Completo — R$ 24,90 (PRICES.premium). */
 export const CHECKOUT_URL =
   "https://pay.lowify.com.br/go.php?offer=72c7fa56";
 
@@ -50,6 +50,6 @@ export const CHECKOUT_URL =
 export const BASIC_CHECKOUT_URL =
   "https://pay.lowify.com.br/go.php?offer=a0fc54fb";
 
-/** Upsell do popup — R$ 10,00 (PRICES.upsell). */
+/** Upsell do popup — R$ 12,99 (PRICES.upsell). */
 export const UPSELL_CHECKOUT_URL =
   "https://pay.lowify.com.br/checkout.php?product_id=QZfjZA";
