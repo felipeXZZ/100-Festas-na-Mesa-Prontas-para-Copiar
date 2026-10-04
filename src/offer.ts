@@ -35,21 +35,21 @@ export const brl = (v: number) => `R$${reais(v)}`;
 /*  CHECKOUT                                                           */
 /* ------------------------------------------------------------------ */
 /*
- * Checkouts desta oferta na Lowify. Cada link precisa cobrar o mesmo
- * valor do PRICES correspondente — mudou um preço aqui, mude no painel da Lowify
+ * Checkouts desta oferta na GGCheckout. Cada link precisa cobrar o mesmo
+ * valor do PRICES correspondente — mudou um preço aqui, mude no painel da GG
  * também. O domínio precisa continuar batendo com CHECKOUT_HOST em
- * Tracking.tsx (hoje pay.lowify.com.br), senão as UTMs e o InitiateCheckout
+ * Tracking.tsx (hoje ggcheckout.app), senão as UTMs e o InitiateCheckout
  * deixam de ser enviados no clique.
  */
 
 /** Pacote Completo — R$ 19,90 (PRICES.premium). */
 export const CHECKOUT_URL =
-  "https://pay.lowify.com.br/go.php?offer=72c7fa56";
+  "https://ggcheckout.app/checkout/v5/mIRsaapMHDN8AeqSiOGw";
 
 /** Pacote Básico — R$ 5,99 (PRICES.basic). */
 export const BASIC_CHECKOUT_URL =
-  "https://pay.lowify.com.br/go.php?offer=a0fc54fb";
+  "https://ggcheckout.app/checkout/v5/u8hInnL0pgjnbb12d0Qb";
 
 /** Upsell do popup — R$ 10,00 (PRICES.upsell). */
 export const UPSELL_CHECKOUT_URL =
-  "https://pay.lowify.com.br/checkout.php?product_id=QZfjZA";
+  "https://ggcheckout.app/checkout/v5/FA8la3hPUulwkHSkLu6a";
