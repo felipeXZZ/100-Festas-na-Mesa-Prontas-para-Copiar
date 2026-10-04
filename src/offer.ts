@@ -21,7 +21,7 @@ export const PRICES = {
   /** Pacote Básico — 50 projetos. ✅ Confirmado: preço principal. */
   basic: 5.99,
   /** Pacote Completo — 150 projetos + 5 bônus. ✅ Confirmado. */
-  premium: 22.9,
+  premium: 19.9,
   /** Popup de upsell — Completo com desconto. ✅ Confirmado. */
   upsell: 10,
 };
@@ -42,7 +42,7 @@ export const brl = (v: number) => `R$${reais(v)}`;
  * deixam de ser enviados no clique.
  */
 
-/** Pacote Completo — R$ 22,90 (PRICES.premium). */
+/** Pacote Completo — R$ 19,90 (PRICES.premium). */
 export const CHECKOUT_URL =
   "https://pay.lowify.com.br/go.php?offer=72c7fa56";
 
