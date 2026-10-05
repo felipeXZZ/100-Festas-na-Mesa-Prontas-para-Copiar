@@ -209,23 +209,19 @@ export default function RootLayout({
 
         {/* `__aposGesto(fn)`: roda `fn` UMA vez, no primeiro gesto da
             visitante (rolar, tocar, clicar, teclar) ou 5s depois de ser
-            chamada, o que vier antes. É o portão dos dois scripts pesados
-            de rastreamento (pixel da Utmify e Clarity).
+            chamada, o que vier antes. Hoje é o portão só do Clarity — o pixel
+            da Utmify saiu dele (ver lá embaixo) porque o atraso custava
+            PageViews.
 
-            Por quê: medido no Lighthouse mobile, fbevents.js + as configs
-            dos pixels da Meta somavam ~1,1s de JavaScript em tarefas longas
-            logo depois do `load` — a maior parte do Total Blocking Time da
-            página. `lazyOnload` sozinho não bastava: ele só tira o script da
-            frente do LCP, mas a tarefa longa continuava caindo dentro da
-            janela que o PageSpeed mede.
+            Por quê: medido no Lighthouse mobile, scripts de rastreamento
+            pesados logo depois do `load` viravam tarefas longas — a maior
+            parte do Total Blocking Time da página. `lazyOnload` sozinho não
+            bastava: ele só tira o script da frente do LCP, mas a tarefa longa
+            continuava caindo dentro da janela que o PageSpeed mede.
 
-            O custo: quem fecha a página em menos de ~5s sem tocar em nada
-            não gera PageView. O stub `clarity()` é criado na hora e guarda as
-            chamadas feitas antes do script chegar. O `fbq` NÃO tem stub (ver
-            o pixel da Utmify, abaixo): até o pixel.js carregar ele não
-            existe, e os eventos de lib/track.ts feitos antes disso não saem.
-            Inline e não `next/script`: precisa existir antes dos
-            `lazyOnload` abaixo, que o chamam. */}
+            O stub `clarity()` é criado na hora e guarda as chamadas feitas
+            antes do script chegar. Inline e não `next/script`: precisa
+            existir antes do `lazyOnload` abaixo, que o chama. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
@@ -296,18 +292,24 @@ export default function RootLayout({
             Meta aborta com `if(f.fbq)return`, e o fbevents.js nunca seria
             carregado.
 
-            Passa pelo `__aposGesto`: fbevents.js + a config do pixel eram
-            a maior tarefa longa da página. */}
-        <Script id="utmify-pixel" strategy="lazyOnload">
+            ⚠️ NÃO passa pelo `__aposGesto` nem espera o `load`
+            (`afterInteractive`, sem atraso). Já passou: o PageSpeed melhorava,
+            mas quem saía em poucos segundos sem tocar em nada não gerava
+            PageView — o funil da Utmify mostrava só ~67% dos cliques virando
+            visualização, e o Meta otimizava com dados a menos. O sinal para a
+            campanha vale mais que a nota do Lighthouse. Inline (sem `src`),
+            então o Next não põe preload na frente da imagem de LCP: o
+            pixel.js entra `async`. */}
+        <Script id="utmify-pixel" strategy="afterInteractive">
           {`
             window.pixelId = "6abc7fa45ab9e61c3f4efef0";
-            window.__aposGesto(function () {
+            (function () {
               var a = document.createElement("script");
               a.setAttribute("async", "");
               a.setAttribute("defer", "");
               a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
               document.head.appendChild(a);
-            });
+            })();
           `}
         </Script>
       </body>
