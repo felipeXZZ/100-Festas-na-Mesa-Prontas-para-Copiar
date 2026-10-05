@@ -48,7 +48,7 @@ export const CHECKOUT_URL =
 
 /** Pacote Básico — R$ 5,99 (PRICES.basic). */
 export const BASIC_CHECKOUT_URL =
-  "https://pay.wiapy.com/gPwDgI1skAIN";
+  "https://pay.wiapy.com/yStSuCQoNvEz";
 
 /** Upsell do popup — R$ 10,00 (PRICES.upsell). */
 export const UPSELL_CHECKOUT_URL =
