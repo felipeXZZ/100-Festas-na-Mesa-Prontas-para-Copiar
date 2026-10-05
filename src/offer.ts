@@ -35,21 +35,21 @@ export const brl = (v: number) => `R$${reais(v)}`;
 /*  CHECKOUT                                                           */
 /* ------------------------------------------------------------------ */
 /*
- * Checkouts desta oferta na Wiapy. Cada link precisa cobrar o mesmo
- * valor do PRICES correspondente — mudou um preço aqui, mude no painel da Wiapy
+ * Checkouts desta oferta na Zuptos. Cada link precisa cobrar o mesmo
+ * valor do PRICES correspondente — mudou um preço aqui, mude no painel da Zuptos
  * também. O domínio precisa continuar batendo com CHECKOUT_HOST em
- * Tracking.tsx (hoje pay.wiapy.com), senão as UTMs e o InitiateCheckout
+ * Tracking.tsx (hoje app.zuptos.com.br), senão as UTMs e o InitiateCheckout
  * deixam de ser enviados no clique.
  */
 
 /** Pacote Completo — R$ 19,90 (PRICES.premium). */
 export const CHECKOUT_URL =
-  "https://pay.wiapy.com/iBacz6Sxymjr";
+  "https://app.zuptos.com.br/checkout/8a87f16a7bc00809";
 
 /** Pacote Básico — R$ 5,99 (PRICES.basic). */
 export const BASIC_CHECKOUT_URL =
-  "https://pay.wiapy.com/yStSuCQoNvEz";
+  "https://app.zuptos.com.br/checkout/90cb203b42599211";
 
 /** Upsell do popup — R$ 10,00 (PRICES.upsell). */
 export const UPSELL_CHECKOUT_URL =
-  "https://pay.wiapy.com/y_4Nnf4QGl4";
+  "https://app.zuptos.com.br/checkout/bbb30ec5bcb6b055";
