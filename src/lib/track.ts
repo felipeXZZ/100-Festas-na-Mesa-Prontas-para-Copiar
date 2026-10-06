@@ -58,7 +58,7 @@ export function getUtms(): Payload {
  * Anexa as UTMs (+fbclid) da URL atual a uma URL de checkout, SEM duplicar:
  * se o parâmetro já existe no destino (ex.: a Utmify já reescreveu o link),
  * o valor original é preservado. Garante que a campanha chegue no checkout
- * mesmo quando o auto-rewrite da Utmify não reconhece o domínio (pay.lowify.com.br)
+ * mesmo quando o auto-rewrite da Utmify não reconhece o domínio (ggcheckout.app)
  * ou ainda não carregou no momento do clique — que é o que zera a atribuição
  * e faz o IC (Início de Checkout) sumir do funil.
  */
