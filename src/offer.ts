@@ -23,7 +23,7 @@ export const PRICES = {
   /** Pacote Completo — 150 projetos + 5 bônus. ✅ Confirmado. */
   premium: 19.9,
   /** Popup de upsell — Completo com desconto. ✅ Confirmado. */
-  upsell: 10,
+  upsell: 12.9,
 };
 
 /** 10 → "10,00" */
@@ -50,6 +50,6 @@ export const CHECKOUT_URL =
 export const BASIC_CHECKOUT_URL =
   "https://pay.lowify.com.br/go.php?offer=a0fc54fb";
 
-/** Upsell do popup — R$ 10,00 (PRICES.upsell). */
+/** Upsell do popup — R$ 12,90 (PRICES.upsell). */
 export const UPSELL_CHECKOUT_URL =
   "https://pay.lowify.com.br/checkout.php?product_id=QZfjZA";
