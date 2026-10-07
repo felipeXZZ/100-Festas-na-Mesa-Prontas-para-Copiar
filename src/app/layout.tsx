@@ -252,8 +252,8 @@ export default function RootLayout({
         />
 
         {/* Microsoft Clarity — mapa de calor e gravação de sessão.
-            Projeto desta oferta: y3snimvd08 (o antigo xnmgji9f58 era herdado
-            da página anterior).
+            Projeto desta oferta: yu7rdlbpqf (os antigos y3snimvd08 e xnmgji9f58 eram herdados
+            de versões anteriores).
 
             ⚠️ Passou de `afterInteractive` para `lazyOnload`. O clarity.js
             custa 26 KB e UMA TAREFA LONGA de ~1s de JavaScript; em
@@ -278,7 +278,7 @@ export default function RootLayout({
                 var t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 var y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
               });
-            })(window, document, "clarity", "script", "y3snimvd08");
+            })(window, document, "clarity", "script", "yu7rdlbpqf");
           `}
         </Script>
 
