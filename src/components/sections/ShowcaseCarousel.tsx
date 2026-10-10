@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Proporção real das pranchas (1055 × 1491), na maior largura gerada — fixa o
- * espaço do card e evita CLS. As duas larguras saem do `npm run carrosel`.
+ * espaço do card e evita CLS. As três larguras saem do `npm run carrosel`.
  */
 const SHEET_W = 640;
 const SHEET_H = 904;
@@ -158,7 +158,7 @@ function Row({
                      abaixo dão a proporção, então o espaço já está reservado
                      (CLS continua 0) — o que falta é só o pixel. */
                   data-src={`/carrosel/${item.slug}-640.webp`}
-                  data-srcset={`/carrosel/${item.slug}-400.webp 400w, /carrosel/${item.slug}-640.webp 640w`}
+                  data-srcset={`/carrosel/${item.slug}-340.webp 340w, /carrosel/${item.slug}-400.webp 400w, /carrosel/${item.slug}-640.webp 640w`}
                   sizes="(min-width: 1024px) 290px, (min-width: 640px) 250px, 190px"
                   alt={
                     duplicate
@@ -243,7 +243,7 @@ function VitrineSemJs() {
     .filter((item, i, all) => all.findIndex((x) => x.slug === item.slug) === i)
     .map(
       (item) =>
-        `<li><img src="/carrosel/${item.slug}-400.webp" width="${SHEET_W}" height="${SHEET_H}" loading="lazy" decoding="async" alt="${item.code}: festa com tema ${item.name}" style="height:auto;width:100%;border-radius:1rem;background:#fff"></li>`,
+        `<li><img src="/carrosel/${item.slug}-340.webp" width="${SHEET_W}" height="${SHEET_H}" loading="lazy" decoding="async" alt="${item.code}: festa com tema ${item.name}" style="height:auto;width:100%;border-radius:1rem;background:#fff"></li>`,
     )
     .join("");
 

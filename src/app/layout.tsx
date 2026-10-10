@@ -107,18 +107,33 @@ export default function RootLayout({
       <head>
         {/* Resource hints das CDNs de terceiros.
 
-            TODOS são `dns-prefetch`, nenhum é `preconnect`: depois que os
-            scripts passaram para `lazyOnload` (ver o fim do <body>), nenhuma
-            dessas origens é pedida antes do `load`. Um `preconnect` abre
+            O Clarity fica em `dns-prefetch`, não `preconnect`: ele é
+            `lazyOnload` + primeiro gesto (ver o fim do <body>), então a origem
+            dele não é pedida antes do `load`. Um `preconnect` abre
             TCP+TLS na hora — no 4G lento seria handshake competindo com a
             imagem de LCP para uma origem que só vai ser usada depois. Com
             dns-prefetch o DNS já vem resolvido e o handshake fica para o
             momento em que a origem for realmente pedida. */}
-        <link rel="dns-prefetch" href="https://cdn.utmify.com.br" />
         <link rel="dns-prefetch" href="https://www.clarity.ms" />
         <link rel="dns-prefetch" href="https://scripts.clarity.ms" />
-        <link rel="dns-prefetch" href="https://connect.facebook.net" />
-        <link rel="dns-prefetch" href="https://api6.ipify.org" />
+
+        {/* EXCEÇÃO: as origens da corrente do PageView são `preconnect`.
+            O pixel da Utmify agora sobe no início do <body> (ver lá), e o
+            PageView só sai depois de passar por TODAS elas em sequência:
+            pixel.js (cdn.utmify) → IPs (api + api6.ipify, o pixel espera os
+            dois) → tracking.utmify → fbevents.js (connect.facebook.net) →
+            PageView. Cada handshake aberto antes é um round-trip a menos
+            nessa fila — e quem sai antes do fim dela não vira "visualização
+            da página de destino" no Meta.
+
+            ⚠️ SEM preload do fbevents.js: testado, ele baixa ~110 KB em
+            paralelo com a imagem de LCP (mesmo pedido com prioridade baixa)
+            e o LCP piorou ~1s no 4G simulado. Fica só o preconnect. */}
+        <link rel="preconnect" href="https://cdn.utmify.com.br" />
+        <link rel="preconnect" href="https://api.ipify.org" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://api6.ipify.org" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://tracking.utmify.com.br" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://connect.facebook.net" />
 
         <script
           type="application/ld+json"
@@ -126,6 +141,38 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full" suppressHydrationWarning>
+        {/* Utmify — Pixel de conversão. É o ÚNICO pixel da Meta da página: o
+            pixel.js injeta o fbevents.js e inicializa o pixel da Meta
+            configurado no painel da Utmify (1572102274047011). O Meta Pixel
+            próprio (881594511471095) saiu a pedido — com os dois, todo
+            `fbq("track")` fazia broadcast e cada evento chegava em dobro.
+
+            ⚠️ Não crie um stub de `fbq` antes deste script: o snippet da
+            Meta aborta com `if(f.fbq)return`, e o fbevents.js nunca seria
+            carregado.
+
+            ⚠️ <script> cru, PRIMEIRO filho do <body> — e não mais
+            `next/script` `afterInteractive`. O `afterInteractive` só injeta
+            o script depois que o React hidrata (~220 KB de JS baixado e
+            executado), e só ENTÃO começava a corrente do PageView (pixel.js →
+            IPs → Utmify → fbevents.js). Quem saía nesse meio-tempo era
+            clique sem "visualização da página" no Meta (funil em ~87%).
+            Agora a corrente começa durante o parse do HTML. No <body> e não
+            no <head> porque o pixel.js observa `document.body` ao iniciar.
+            O pixel.js é `async` (9 KB): não bloqueia o parse nem o LCP.
+            `fetchPriority="high"` porque, sem ele, o Chrome trata script
+            injetado como baixa prioridade e o enfileira ATRÁS dos chunks do
+            Next — medido com throttling real, o pedido só saía aos 3,3s,
+            praticamente o mesmo momento do antigo `afterInteractive`. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'window.pixelId="6abc7fa45ab9e61c3f4efef0";' +
+              '(function(){var a=document.createElement("script");a.async=true;a.fetchPriority="high";' +
+              'a.src="https://cdn.utmify.com.br/scripts/pixel/pixel.js";' +
+              "document.head.appendChild(a)})();",
+          }}
+        />
         <ScrollToTop />
         <Tracking />
         {children}
@@ -279,37 +326,6 @@ export default function RootLayout({
                 var y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
               });
             })(window, document, "clarity", "script", "yu7rdlbpqf");
-          `}
-        </Script>
-
-        {/* Utmify — Pixel de conversão. É o ÚNICO pixel da Meta da página: o
-            pixel.js injeta o fbevents.js e inicializa o pixel da Meta
-            configurado no painel da Utmify (1572102274047011). O Meta Pixel
-            próprio (881594511471095) saiu a pedido — com os dois, todo
-            `fbq("track")` fazia broadcast e cada evento chegava em dobro.
-
-            ⚠️ Não crie um stub de `fbq` antes deste script: o snippet da
-            Meta aborta com `if(f.fbq)return`, e o fbevents.js nunca seria
-            carregado.
-
-            ⚠️ NÃO passa pelo `__aposGesto` nem espera o `load`
-            (`afterInteractive`, sem atraso). Já passou: o PageSpeed melhorava,
-            mas quem saía em poucos segundos sem tocar em nada não gerava
-            PageView — o funil da Utmify mostrava só ~67% dos cliques virando
-            visualização, e o Meta otimizava com dados a menos. O sinal para a
-            campanha vale mais que a nota do Lighthouse. Inline (sem `src`),
-            então o Next não põe preload na frente da imagem de LCP: o
-            pixel.js entra `async`. */}
-        <Script id="utmify-pixel" strategy="afterInteractive">
-          {`
-            window.pixelId = "6abc7fa45ab9e61c3f4efef0";
-            (function () {
-              var a = document.createElement("script");
-              a.setAttribute("async", "");
-              a.setAttribute("defer", "");
-              a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-              document.head.appendChild(a);
-            })();
           `}
         </Script>
       </body>

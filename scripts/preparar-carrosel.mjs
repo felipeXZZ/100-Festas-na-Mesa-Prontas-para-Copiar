@@ -4,8 +4,10 @@
  *   npm run carrosel
  *
  * Lê as imagens grandes de `_originais-carrosel/` (fora de /public — elas NÃO
- * vão para o ar) e gera em `public/carrosel/` duas larguras de cada uma:
+ * vão para o ar) e gera em `public/carrosel/` três larguras de cada uma:
  *
+ *   <nome>-340.webp   celular  (card de 190px em telas ~1,75x — o Moto G do
+ *                     PageSpeed pedia 333px e recebia a de 400)
  *   <nome>-400.webp   celular  (card de 190px em telas 2x)
  *   <nome>-640.webp   desktop  (card de 290px em telas 2x)
  *
@@ -30,7 +32,7 @@ const ORIGINAIS = path.join(root, "_originais-carrosel");
 const DESTINO = path.join(root, "public", "carrosel");
 
 /** Larguras geradas. Mudou o tamanho do card? Ajuste aqui e no componente. */
-const LARGURAS = [400, 640];
+const LARGURAS = [340, 400, 640];
 
 if (!fs.existsSync(ORIGINAIS)) {
   console.error(`Pasta não encontrada: ${ORIGINAIS}`);
@@ -58,7 +60,9 @@ for (const arquivo of arquivos) {
     const saida = path.join(DESTINO, `${slug}-${largura}.webp`);
     await sharp(path.join(ORIGINAIS, arquivo))
       .resize({ width: largura })
-      .webp({ quality: 72, effort: 6 })
+      // Qualidade 60 (era 72): -10% a -15% de peso por prancha, sem diferença
+      // visível num card de 190px que passa correndo na faixa.
+      .webp({ quality: 60, effort: 6 })
       .toFile(saida);
     const kb = fs.statSync(saida).size / 1024;
     total += kb;
