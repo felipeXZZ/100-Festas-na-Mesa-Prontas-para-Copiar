@@ -1,6 +1,6 @@
 /* =====================================================================
  *  CONTEÚDO DA LANDING PAGE — "150 Festas na Mesa Prontas para Copiar"
- *  Básico R$ 5,99 (50 projetos) · Completo R$ 22,90 (150 projetos + 5 bônus)
+ *  Básico R$ 5,99 (50 projetos) · Completo R$ 19,90 (150 projetos + 5 bônus)
  *  Popup: uma tela só. Preços e checkout: src/offer.ts
  * =====================================================================
  *  Este é o ÚNICO arquivo que você precisa editar para trocar textos,
