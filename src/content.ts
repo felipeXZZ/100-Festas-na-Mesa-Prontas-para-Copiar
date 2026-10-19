@@ -940,7 +940,7 @@ export const upsell = {
   /** O valor dos bônus é anexado a esta frase, vindo de `bonuses.totalValue`. */
   upgradeNote: "150 festas + 5 bônus (valem",
   cta: `SIM! Quero o Pacote Completo por R$ ${reais(PRICES.upsell)}`,
-  decline: "Continuar apenas com o pacote básico",
+  decline: `Continuar apenas com o pacote básico por R$ ${reais(PRICES.basic)}`,
   closeLabel: "Fechar",
   /*
    * SEM cronômetro de propósito — não existe `expiraMs` aqui.
