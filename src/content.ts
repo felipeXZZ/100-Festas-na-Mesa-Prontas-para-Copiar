@@ -981,10 +981,15 @@ export const upsellAuto = {
    * ainda está com o ponteiro lá em cima — sem esta espera o popup abriria no
    * primeiro segundo, antes de a pessoa ter visto a oferta.
    *
-   * ⚠️ Havia aqui um `delayMs` de 45s: o popup abria só por tempo na página,
-   * no meio da leitura. Saiu a pedido do dono — aparecia "na tela do nada".
    */
   exitArmMs: 5000,
+  /**
+   * Gatilho de TEMPO: abre o popup depois deste tempo na página, mesmo sem
+   * sinal de saída. Já existiu com 45s, saiu a pedido ("aparecia na tela do
+   * nada") e voltou a pedido com 25s. É ele que pega quem está lendo com
+   * calma e nunca chega ao fim nem tira o ponteiro da janela.
+   */
+  delayMs: 25000,
   /**
    * A quantos pixels do fim da página o popup considera que a pessoa chegou
    * ao fim (o gatilho de saída do celular, onde não há ponteiro para vigiar).

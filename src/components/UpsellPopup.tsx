@@ -543,18 +543,17 @@ export function BasicCtaWithUpsell({ label }: { label: string }) {
 
 /**
  * Abre a oferta de PRICES.upsell sem ninguém pedir, mas SÓ quando a pessoa está
- * de saída. São dois gatilhos, um para cada tipo de aparelho:
+ * de saída ou já está há um tempo na página. São três gatilhos:
  *
  *  1. PONTEIRO (desktop) — o ponteiro deixa a janela POR CIMA, onde ficam a
  *     aba, a barra de endereço e o X. Sair pelos lados ou por baixo não
  *     conta: ali não há para onde ir;
  *  2. FIM DA PÁGINA (celular) — a pessoa chega ao fim de tudo, depois do
  *     último CTA. No celular não existe ponteiro para vigiar, e quem leu a
- *     página inteira e continua rolando está saindo.
- *
- * ⚠️ O gatilho de TEMPO foi RETIRADO a pedido do dono ("aparecia na tela do
- * nada"): ele abria o popup no meio da leitura, sem nenhum sinal de que a
- * pessoa ia embora. Se um dia voltar, volte sabendo que é isso que ele faz.
+ *     página inteira e continua rolando está saindo;
+ *  3. TEMPO — `upsellAuto.delayMs` (25s) na página, em qualquer aparelho.
+ *     Já foi retirado uma vez por abrir "do nada", no meio da leitura, e
+ *     voltou a pedido do dono. É isso que ele faz.
  *
  * Fechar encerra o popup e a visitante volta para a página.
  *
@@ -592,6 +591,7 @@ export function AutoUpsellPopup() {
 
     const limpar = () => {
       clearTimeout(armar);
+      clearTimeout(porTempo);
       document.removeEventListener("mouseout", onMouseOut);
       window.removeEventListener("scroll", onScroll);
     };
@@ -625,6 +625,8 @@ export function AutoUpsellPopup() {
       document.addEventListener("mouseout", onMouseOut);
       window.addEventListener("scroll", onScroll, { passive: true });
     }, upsellAuto.exitArmMs);
+
+    const porTempo = setTimeout(() => dispararGatilho("tempo"), upsellAuto.delayMs);
 
     return limpar;
     // `abrir` é memoizado sem dependências: nunca muda, então os gatilhos são
