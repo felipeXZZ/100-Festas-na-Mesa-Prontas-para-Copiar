@@ -155,7 +155,8 @@ export const hero = {
    * Para LIGAR de volta: escreva o texto aqui. `{{trecho}}` sai em negrito e
    * o valor precisa bater com `plans.basic.price` e com `stickyBar.price`.
    */
-  priceHint: `A partir de {{R$ ${reais(PRICES.basic)}}} · acesso imediato no e-mail`,
+  // Desligado a pedido ("A partir de R$ 5,99 · acesso imediato no e-mail").
+  priceHint: "",
   /**
    * MICROBENEFÍCIOS abaixo do mockup — TESTE. Lista vertical com ícone
    * colorido, no formato da referência: só o ÍCONE é azul, o texto fica na
@@ -1023,6 +1024,9 @@ export const faq = {
   title: "Perguntas Frequentes",
   cta: "Quero começar minha festa",
   /**
+   * Respostas CURTAS, a pedido (uma frase ou duas): os detalhes já estão no
+   * corpo da página, e o FAQ só precisa derrubar a dúvida.
+   *
    * Só 4 perguntas, a pedido — e são as 4 objeções que de fato seguram a
    * compra, na ordem em que aparecem na cabeça de quem está decidindo:
    * "não sei fazer" → "vai ficar caro" → "como recebo" → "qual plano".
@@ -1036,19 +1040,19 @@ export const faq = {
   items: [
     {
       q: "Preciso saber decorar?",
-      a: "Não. Cada projeto mostra a mesa antes e depois, a lista do que comprar e um mapa de onde colocar bolo, bandejas, enfeites e balões. Serve para a festa da sua família e para decoradoras que montam para clientes.",
+      a: "Não. Cada projeto traz o antes e depois, a lista de compras e o mapa de montagem. É só seguir.",
     },
     {
       q: "Funciona com a mesa que eu tenho?",
-      a: "Sim. Há projetos para mesa de jantar, mesa pequena, aparador e bancada, e cada um informa as medidas da mesa e o espaço necessário. Você também vê o custo estimado e o que dá para trocar por objetos de casa.",
+      a: "Sim. Tem projetos para mesa de jantar, mesa pequena, aparador e bancada, cada um com as medidas certas.",
     },
     {
       q: "É kit físico? Como recebo?",
-      a: "Não é kit físico nem aluguel de decoração: é um produto digital. Após a confirmação do pagamento, o acesso chega na hora pelo WhatsApp e pelo e-mail, e você abre no celular, tablet ou computador.",
+      a: "É digital. O acesso chega na hora pelo WhatsApp e pelo e-mail, e abre no celular ou computador.",
     },
     {
       q: "Qual a diferença entre o Básico e o Completo?",
-      a: "O Básico traz 50 projetos de festa na mesa. O Completo traz os 150 projetos mais os 5 bônus.",
+      a: "Básico: 50 projetos. Completo: os 150 projetos + 5 bônus.",
     },
   ],
 };

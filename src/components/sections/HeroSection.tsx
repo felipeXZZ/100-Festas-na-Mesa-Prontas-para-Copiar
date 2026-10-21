@@ -81,14 +81,14 @@ export function HeroSection() {
             <HeroPerks />
           </div>
 
-          {/* O texto do CTA da hero é MAIOR que o dos outros botões: é o
-              clique que a dobra inteira existe para conseguir.
-
-              A pedido, o texto ocupa mais do retângulo: fonte fluida
-              (`clamp`, de 1,05rem no celular pequeno até 1,5rem no desktop),
-              espaçamento entre letras normal e padding menor (px-3/py-4 no
-              celular). Em telas de ~360px o rótulo pode quebrar em duas
-              linhas — o `text-balance` do CTAButton deixa as duas iguais. */}
+          {/* CTA da hero. A pedido, o botão segue o MESMO desenho dos outros CTAs da
+              página (tamanho `lg` padrão, uma linha e a seta para baixo) —
+              sem a segunda linha de preço. A FONTE é maior que a dos outros,
+              mas o retângulo tem o mesmo tamanho: o espaço vem do padding
+              lateral menor e do espaçamento entre letras normal. A fonte é
+              fluida (`vw`) para o rótulo caber em UMA linha em qualquer
+              celular — maior que isso, ele quebrava e o botão perdia o
+              formato. */}
           <div className="cta-pulse mt-8 flex w-full justify-center lg:justify-start">
             <CTAButton
               size="lg"
@@ -98,7 +98,7 @@ export function HeroSection() {
               trackId="hero-plans"
               attention
               shine={false}
-              arrow={false}
+              className="px-3 text-[clamp(1rem,4.9vw,1.35rem)] tracking-normal sm:px-8 sm:text-[1.35rem]"
               /* Segunda linha DENTRO do botão: o preço. Ver `hero.priceHint`
                  e a prop `subline` do CTAButton. */
               subline={
@@ -106,7 +106,6 @@ export function HeroSection() {
                   <Highlight text={hero.priceHint} tone="bold" />
                 ) : null
               }
-              className="px-3 py-4 text-[clamp(1.05rem,4.9vw,1.5rem)] tracking-normal sm:px-6 sm:text-[1.5rem]"
             >
               {hero.cta}
             </CTAButton>
