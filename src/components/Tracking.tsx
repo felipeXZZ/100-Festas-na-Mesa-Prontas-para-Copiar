@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-import { trackEvent, trackCtaClick, trackInitiateCheckout, withUtms } from "@/lib/track";
-import { PRICES } from "@/offer";
+import { trackEvent, trackCtaClick, withUtms } from "@/lib/track";
 
 // Host do checkout — para disparar checkout_redirect só quando for pro checkout.
 // ⚠️ Se o checkout mudar de domínio, ESTA linha tem que mudar junto: é ela que
-// libera a reescrita das UTMs e o InitiateCheckout no clique. Errada, o funil
+// libera a reescrita das UTMs e o checkout_redirect no clique. Errada, o funil
 // perde a atribuição sem dar nenhum erro visível.
 const CHECKOUT_HOST = "ggcheckout.app";
 
@@ -39,19 +38,11 @@ export function Tracking() {
           link.href = withUtms(link.href);
           const loc = cta.getAttribute("data-cta-location") || "cta";
           trackEvent("checkout_redirect", { cta_location: loc });
-          // IC padrão do Meta no clique — garante sinal de checkout para a Meta
-          // mesmo se o lado do checkout (GGCheckout/Utmify) não disparar.
-          // Completo, popup de upsell ou — qualquer outro caminho — Básico.
-          // Os valores vêm de PRICES (src/offer.ts).
-          // ⚠️ Todo caminho de upsell precisa estar AQUI: um data-cta-location
-          // sem linha própria cai no Básico e reporta o valor errado ao Meta.
-          const icValue =
-            loc === "plan-premium"
-              ? PRICES.premium
-              : loc === "upsell-accept"
-                ? PRICES.upsell
-                : PRICES.basic;
-          trackInitiateCheckout(icValue, { cta_location: loc });
+          // ⚠️ SEM InitiateCheckout próprio aqui, a pedido: o pixel da Utmify
+          // já dispara o IC no clique do link de checkout (navegador + servidor).
+          // Com os dois, a Meta recebia DOIS IC por clique, com eventIDs
+          // diferentes — sem deduplicação, o mesmo clique contava em dobro.
+          // `trackInitiateCheckout` continua em lib/track.ts se precisar voltar.
         }
       }
     };
