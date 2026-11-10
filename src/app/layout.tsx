@@ -143,7 +143,8 @@ export default function RootLayout({
       <body className="min-h-full" suppressHydrationWarning>
         {/* Utmify — Pixel de conversão. É o ÚNICO pixel da Meta da página: o
             pixel.js injeta o fbevents.js e inicializa o pixel da Meta
-            configurado no painel da Utmify (1572102274047011). O Meta Pixel
+            configurado no painel da Utmify para o `pixelId` abaixo (no
+            pixelId antigo era o 1572102274047011). O Meta Pixel
             próprio (881594511471095) saiu a pedido — com os dois, todo
             `fbq("track")` fazia broadcast e cada evento chegava em dobro.
 
@@ -167,7 +168,7 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html:
-              'window.pixelId="6abc7fa45ab9e61c3f4efef0";' +
+              'window.pixelId="6af3955869fecf4d003c863d";' +
               '(function(){var a=document.createElement("script");a.async=true;a.fetchPriority="high";' +
               'a.src="https://cdn.utmify.com.br/scripts/pixel/pixel.js";' +
               "document.head.appendChild(a)})();",
@@ -281,8 +282,11 @@ export default function RootLayout({
           }}
         />
 
-        {/* Pixel da Utmify já atualizado para a conta desta oferta
-            (6abc7fa45ab9e61c3f4efef0). */}
+        {/* Pixel da Utmify: 6af3955869fecf4d003c863d (era 6abc7fa45ab9e61c3f4efef0).
+            Veio de um snippet ofuscado da Utmify (atob + XOR); decodificado,
+            ele só define `window.pixelId` e carrega o mesmo pixel.js — então
+            só o ID foi trocado no <script> do início do <body>, mantendo o
+            carregamento antecipado. */}
 
         {/* Utmify — captura de UTMs.
             `lazyOnload` (era `afterInteractive`): em `afterInteractive` o Next
