@@ -19,11 +19,12 @@ export function Highlight({
    * "purple" para fundo CLARO (purple escuro, 5,5:1).
    * "gold" só para fundo ESCURO — sobre creme o amarelo desaparece.
    * "green" para fundo CLARO quando o destaque é economia/oferta (5,2:1).
+   * "red" para fundo CLARO (vermelho de alerta, 5,6:1 sobre branco).
    * "bold" NÃO muda a cor: só engrossa o trecho, herdando a cor do pai.
    *   Serve para onde a cor já vem de outro elemento (o ícone azul dos
    *   microbenefícios da hero) e um segundo tom brigaria com ele.
    */
-  tone?: "purple" | "gold" | "green" | "bold";
+  tone?: "purple" | "gold" | "green" | "red" | "bold";
   /** true: risca um traço amarelo por baixo do trecho {{destacado}}. */
   underline?: boolean;
 }) {
@@ -33,9 +34,11 @@ export function Highlight({
       ? "hl-gold"
       : tone === "green"
         ? "hl-green"
-        : tone === "bold"
-          ? "font-bold"
-          : "hl-purple";
+        : tone === "red"
+          ? "text-danger"
+          : tone === "bold"
+            ? "font-bold"
+            : "hl-purple";
   // 1.5em (e não px) para escalar junto com o tamanho responsivo do headline.
   const numCls = cn(cls, "text-[1.5em] leading-none");
 

@@ -57,7 +57,8 @@ export function HeroSection() {
               <Sparkles className="size-[1.3em] shrink-0 text-gold" aria-hidden />
             )}
             <span>
-              <Highlight text={hero.badge} tone="purple" />
+              {/* Destaque VERMELHO, a pedido (era o azul da marca). */}
+              <Highlight text={hero.badge} tone="red" />
             </span>
           </p>
 

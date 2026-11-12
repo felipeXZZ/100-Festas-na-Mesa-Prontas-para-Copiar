@@ -112,10 +112,9 @@ export const hero = {
    * Frase mais longa que ~37 caracteres quebra em duas linhas no celular —
    * o selo do HeroSection é dimensionado para isso.
    */
-  // A pedido, trocado por uma frase de BENEFÍCIO (era "Aprovado por
-  // {{1.847+ pessoas}} no Brasil"): diz o ganho em vez de afirmar um número
-  // de clientes. Cabe na pílula (~37 caracteres).
-  badge: "Festa linda {{sem pagar decoradora}}",
+  // O espaço entre "no" e "Brasil" é NÃO-QUEBRÁVEL ( ): em tela muito
+  // estreita a quebra deixaria "Brasil" sozinho embaixo.
+  badge: "Aprovado por {{1.847+ pessoas}} no Brasil",
   /** Estrelas amarelas do selo. 0 = escondidas (entra um ícone dourado). */
   badgeStars: 5,
   // [[ ]] = número em destaque 1,5x; {{ }} = destaque colorido. Ver <Highlight/>.
