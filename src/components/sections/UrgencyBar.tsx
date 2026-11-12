@@ -48,11 +48,13 @@ export function UrgencyBar() {
   // reservado para os botões de compra. Com texto branco o vermelho fecha
   // 5,6:1, acima dos 4,5:1 da WCAG AA.
   // (Versão anterior: `bg-purple-ink`, azul da marca.)
+  // TESTE (a pedido): voltou para `bg-purple-ink`, o MESMO azul do "+150
+  // Festas na Mesa" do headline. Para voltar ao vermelho: `bg-danger`.
   return (
     <div
       ref={barRef}
       aria-hidden={!show}
-      className={`sticky top-0 z-50 w-full bg-danger px-4 py-2 text-white shadow-sm transition-transform duration-300 ${
+      className={`sticky top-0 z-50 w-full bg-purple-ink px-4 py-2 text-white shadow-sm transition-transform duration-300 ${
         show ? "translate-y-0" : "-translate-y-full"
       }`}
     >

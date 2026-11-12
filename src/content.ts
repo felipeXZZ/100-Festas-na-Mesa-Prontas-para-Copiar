@@ -745,7 +745,7 @@ export const testimonials = {
  */
 export const purchaseNotifications = {
   /** Segundos até o PRIMEIRO aviso aparecer, contados ao abrir a página. */
-  firstDelaySeconds: 4,
+  firstDelaySeconds: 8,
   /** Quanto tempo cada aviso fica na tela (segundos). */
   visibleSeconds: 6,
   /**
@@ -759,12 +759,13 @@ export const purchaseNotifications = {
    *
    * ⚠️ Era 4–8s (um aviso a cada ~11s): vinham em fila, um atrás do outro,
    * e um balão que nunca sai da tela deixa de ser notícia e vira enfeite —
-   * além de competir com o vídeo e com os preços pela atenção. Agora são
-   * 25–45s (~31 a 51s por aviso). A pedido, ficou mais rápido: 10–18s,
-   * ~16 a 24s por aviso — a lista de 18 pessoas dá a volta em uns 6 minutos.
+   * além de competir com o vídeo e com os preços pela atenção. Depois foi
+   * 25–45s e 10–18s (a pedido, mais rápido), e voltou a pedido para
+   * 30–50s, porque vinham muito em seguida: ~36 a 56s por aviso, e a lista
+   * de 18 pessoas leva uns 14 minutos para dar a volta.
    */
-  gapSecondsMin: 10,
-  gapSecondsMax: 18,
+  gapSecondsMin: 30,
+  gapSecondsMax: 50,
   /** Linha de baixo, depois da cidade. */
   timeLabel: "agora mesmo",
   /** Complemento do nome, na linha de cima. */

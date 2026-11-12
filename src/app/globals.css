@@ -275,6 +275,18 @@ html.animar .cta-attention::before {
   box-shadow: 0 14px 34px -6px rgba(34, 180, 85, 0.8);
 }
 
+/* Variante RARA do brilho (CTA da hero): passa em ~1s e fica 4s parado —
+   "de vez em quando", em vez do vai e vem constante do cta-shine. */
+@keyframes cta-shine-raro {
+  0% {
+    transform: translateX(0) skewX(-20deg);
+  }
+  20%,
+  100% {
+    transform: translateX(700%) skewX(-20deg);
+  }
+}
+
 @keyframes cta-shine {
   0% {
     transform: translateX(0) skewX(-20deg);

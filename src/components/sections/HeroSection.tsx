@@ -97,8 +97,10 @@ export function HeroSection() {
               location="hero"
               trackId="hero-plans"
               attention
-              shine={false}
-              className="px-3 text-[clamp(1rem,4.9vw,1.35rem)] tracking-normal sm:px-8 sm:text-[1.35rem]"
+              /* Brilho "de vez em quando", a pedido: a faixa passa em ~1s a
+                 cada 5s (`cta-shine-raro`, globals.css). Fica parado até o
+                 primeiro gesto, como as outras animações da dobra. */
+              className="before:[animation:cta-shine-raro_5s_ease-in-out_infinite] px-3 text-[clamp(1rem,4.9vw,1.35rem)] tracking-normal sm:px-8 sm:text-[1.35rem]"
               /* Segunda linha DENTRO do botão: o preço. Ver `hero.priceHint`
                  e a prop `subline` do CTAButton. */
               subline={
