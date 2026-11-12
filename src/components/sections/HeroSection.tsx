@@ -1,6 +1,8 @@
 import Image from "next/image";
 import {
+  Award,
   ListOrdered,
+  ShieldCheck,
   ShoppingCart,
   Sparkles,
   Star,
@@ -62,13 +64,19 @@ export function HeroSection() {
             </span>
           </p>
 
-          {/* Sem subheadline embaixo, a pedido: a linha de apoio virou a
-              legenda do mockup (`HeroCaption`). */}
+          {/* Headline maior e subheadline menor: a diferença de tamanho
+              entre as duas é o que faz a promessa ser lida primeiro. */}
           <h1 className="font-display text-balance mt-5 text-[2.15rem] leading-[1.04] text-ink sm:text-[3.1rem] lg:text-[3.5rem]">
             {/* sem `underline`: o traço dourado por baixo do destaque saiu a
                 pedido — o azul sozinho já separa o destaque do resto */}
             <Highlight text={hero.headline} tone="purple" />
           </h1>
+
+          {hero.subheadline && (
+            <p className="mt-4 max-w-md text-[14px] leading-relaxed text-ink-soft sm:text-[15px]">
+              <Highlight text={hero.subheadline} tone="bold" />
+            </p>
+          )}
 
           {/* Mockup — no MOBILE aparece aqui, logo abaixo do título;
               no desktop ele vive na coluna da direita. */}
@@ -98,7 +106,7 @@ export function HeroSection() {
                  atravessa o botão em ~1,4s a cada 4s (`cta-shine-raro`,
                  globals.css). Fica parado até o primeiro gesto, como as
                  outras animações da dobra. */
-              className="before:-left-[40%] before:w-[40%] before:bg-transparent before:bg-gradient-to-r before:from-transparent before:via-white/55 before:to-transparent before:[animation:cta-shine-raro_4s_ease-in-out_infinite] px-3 text-[clamp(1rem,4.9vw,1.35rem)] tracking-normal sm:px-8 sm:text-[1.35rem]"
+              className="!shadow-none before:-left-[40%] before:w-[40%] before:bg-transparent before:bg-gradient-to-r before:from-transparent before:via-white/55 before:to-transparent before:[animation:cta-shine-raro_4s_ease-in-out_infinite] px-3 text-[clamp(1rem,4.9vw,1.35rem)] tracking-normal sm:px-8 sm:text-[1.35rem]"
               /* Segunda linha DENTRO do botão: o preço. Ver `hero.priceHint`
                  e a prop `subline` do CTAButton. */
               subline={
@@ -111,8 +119,10 @@ export function HeroSection() {
             </CTAButton>
           </div>
 
-          {/* Uma linha só, colada no botão: por onde a entrega chega. A
-              linha de "pagamento seguro" que ficava aqui saiu a pedido. */}
+          {/* Selos de confiança colados no botão (a pedido, no lugar da
+              linha de entrega por WhatsApp/e-mail, que está desligada em
+              `hero.delivery`). */}
+          <HeroTrust />
           <HeroDelivery />
         </div>
 
@@ -196,6 +206,36 @@ function HeroPerks() {
             <span>
               <Highlight text={perk.text} tone="bold" />
             </span>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+/** Ícones dos selos de confiança — a chave vem de `hero.trust[].icon`. */
+const TRUST_ICONS = {
+  shield: ShieldCheck,
+  cart: ShoppingCart,
+  award: Award,
+} as const;
+
+/**
+ * Selos de confiança abaixo do CTA: ícone verde + texto, em linha corrida
+ * que quebra sozinha (no celular: dois em cima, um embaixo, centralizados).
+ */
+function HeroTrust() {
+  if (hero.trust.length === 0) return null;
+  return (
+    <ul className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[14px] text-ink-soft lg:justify-start">
+      {hero.trust.map((item) => {
+        const Icon = TRUST_ICONS[item.icon as keyof typeof TRUST_ICONS];
+        return (
+          <li key={item.text} className="flex items-center gap-1.5">
+            {Icon && (
+              <Icon aria-hidden className="size-[18px] shrink-0 text-green-ink" />
+            )}
+            {item.text}
           </li>
         );
       })}

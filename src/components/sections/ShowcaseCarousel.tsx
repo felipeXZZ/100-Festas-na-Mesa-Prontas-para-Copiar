@@ -14,7 +14,7 @@ const SHEET_H = 904;
 
 /** Uma volta completa da faixa. As duas correm no MESMO tempo (e, como têm o
  *  mesmo número de cards, na mesma velocidade) — só mudam de sentido. */
-const DURACAO = "17s";
+const DURACAO = "30s"; // era 17s — mais lento a pedido, dá tempo de ver cada festa
 
 type Item = (typeof showcase.items)[number];
 

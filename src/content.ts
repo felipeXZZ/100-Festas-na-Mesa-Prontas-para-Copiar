@@ -128,8 +128,15 @@ export const hero = {
   // cliente."). No lugar, uma linha curta LOGO ABAIXO do mockup, que diz o
   // que tem dentro, com exemplos de temas — os mesmos que aparecem na arte.
   // `{{trecho}}` sai em negrito.
-  caption:
-    "150 festas na mesa passo a passo: safári, dinossauros, princesa e muito mais.",
+  // Subheadline logo abaixo do título (voltou a pedido). Fala com os DOIS
+  // públicos: quem monta a festa em casa e a decoradora que monta para
+  // clientes. `{{trecho}}` sai em negrito. Precisa caber em DUAS linhas no
+  // celular de 360px (~80 caracteres) — frase mais longa vira três.
+  subheadline:
+    "Escolha o tema, siga a lista e monte sem improviso, para o seu filho ou cliente.",
+  // DESLIGADA a pedido (vazio = some). Era: "150 festas na mesa passo a
+  // passo: safári, dinossauros, princesa e muito mais."
+  caption: "",
   cta: "Quero as 150 festas agora",
   /**
    * ENTREGA — única linha abaixo do CTA, com os ícones do WhatsApp e do
@@ -142,8 +149,20 @@ export const hero = {
    * seguido do nome em NEGRITO (o nome vem do mapa em HeroSection.tsx). O
    * resto da frase sai em texto normal. Texto vazio ("") tira a linha.
    */
-  delivery:
-    "Você recebe tudo na hora, direto no seu [whatsapp] e no seu [email]",
+  // DESLIGADO a pedido (vazio = a linha some). Era: "Você recebe tudo na
+  // hora, direto no seu [whatsapp] e no seu [email]". No lugar entraram os
+  // selos de confiança de `trust`, logo abaixo.
+  delivery: "",
+  /**
+   * Selos de confiança logo abaixo do botão da hero: ícone verde + texto
+   * curto. A garantia precisa bater com a seção de garantia e com o
+   * checkout (7 dias).
+   */
+  trust: [
+    { icon: "shield", text: "Privacidade protegida" },
+    { icon: "cart", text: "Compra segura" },
+    { icon: "award", text: "Garantia de 7 dias" },
+  ],
   /**
    * ✅ LIGADO — preço na primeira dobra, como segunda linha DENTRO do
    * botão verde da hero (ver a prop `subline` do CTAButton). Com o texto
