@@ -123,10 +123,13 @@ export const hero = {
   // "para Você Copiar". O traço dourado por baixo segue desligado no
   // HeroSection (prop `underline`).
   headline: "[[+150]] {{Festas na Mesa}} Prontas\npara Você Copiar",
-  // Fala com os DOIS públicos do mesmo material: quem monta a festa em casa
-  // e a decoradora que monta para clientes. `{{trecho}}` sairia em negrito.
-  subheadline:
-    "Escolha o tema, siga a lista e monte uma festa linda numa mesa só, para o seu filho ou para o seu cliente.",
+  // A subheadline embaixo do título SAIU a pedido ("Escolha o tema, siga a
+  // lista e monte uma festa linda numa mesa só, para o seu filho ou para o seu
+  // cliente."). No lugar, uma linha curta LOGO ABAIXO do mockup, que diz o
+  // que tem dentro, com exemplos de temas — os mesmos que aparecem na arte.
+  // `{{trecho}}` sai em negrito.
+  caption:
+    "150 festas na mesa passo a passo: safári, dinossauros, princesa, bosque, fazendinha e muito mais.",
   cta: "Quero as 150 festas agora",
   /**
    * ENTREGA — única linha abaixo do CTA, com os ícones do WhatsApp e do
@@ -178,7 +181,7 @@ export const hero = {
    */
   perks: [] as { icon: string; text: string }[],
   /**
-   * Mockup do produto na primeira dobra (abaixo da subheadline no celular,
+   * Mockup do produto na primeira dobra (abaixo do título no celular,
    * coluna da direita no desktop). É o elemento de LCP da página.
    * WebP com transparência → renderizado em `object-contain`, sem cantos
    * arredondados nem fundo.

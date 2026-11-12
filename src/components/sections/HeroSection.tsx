@@ -16,7 +16,7 @@ import { PAGE_VARIANT } from "@/lib/track";
 /**
  * 2. HERO — primeira dobra.
  *
- * Ordem no MOBILE (a maior parte do tráfego): selo → headline → subheadline →
+ * Ordem no MOBILE (a maior parte do tráfego): selo → headline →
  * mockup do produto → CTA → linha de segurança. O mockup entra logo depois do
  * texto porque é ele que materializa a promessa ("isso aqui é um material de
  * verdade, com projetos dentro") antes de pedir o clique.
@@ -61,23 +61,19 @@ export function HeroSection() {
             </span>
           </p>
 
-          {/* Headline maior e subheadline menor, a pedido: a diferença de
-              tamanho entre as duas é o que faz a promessa ser lida primeiro. */}
+          {/* Sem subheadline embaixo, a pedido: a linha de apoio virou a
+              legenda do mockup (`HeroCaption`). */}
           <h1 className="font-display text-balance mt-5 text-[2.15rem] leading-[1.04] text-ink sm:text-[3.1rem] lg:text-[3.5rem]">
             {/* sem `underline`: o traço dourado por baixo do destaque saiu a
                 pedido — o azul sozinho já separa o destaque do resto */}
             <Highlight text={hero.headline} tone="purple" />
           </h1>
 
-          <p className="mt-4 max-w-md text-[14px] leading-relaxed text-ink-soft sm:text-[15px]">
-            {/* `{{trecho}}` em negrito: o nome do produto dentro da frase. */}
-            <Highlight text={hero.subheadline} tone="bold" />
-          </p>
-
-          {/* Mockup — no MOBILE aparece aqui, logo abaixo da subheadline;
+          {/* Mockup — no MOBILE aparece aqui, logo abaixo do título;
               no desktop ele vive na coluna da direita. */}
           <div className="mt-8 w-full lg:hidden">
             <HeroMockup />
+            <HeroCaption />
             <HeroPerks />
           </div>
 
@@ -122,10 +118,26 @@ export function HeroSection() {
         {/* ---------------- Mockup (desktop) ---------------- */}
         <div className="hidden lg:block">
           <HeroMockup />
+          <HeroCaption />
           <HeroPerks />
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * Legenda LOGO ABAIXO do mockup: o que tem dentro, com exemplos de temas.
+ * Ocupa o lugar da antiga subheadline (que ficava embaixo do título).
+ * Centralizada nas duas larguras — ela pertence à imagem, não à coluna de
+ * texto.
+ */
+function HeroCaption() {
+  if (!hero.caption) return null;
+  return (
+    <p className="mx-auto mt-4 max-w-md text-center text-[15px] leading-relaxed text-ink-soft">
+      <Highlight text={hero.caption} tone="bold" />
+    </p>
   );
 }
 
