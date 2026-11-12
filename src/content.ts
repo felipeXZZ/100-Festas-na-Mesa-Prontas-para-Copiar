@@ -109,12 +109,13 @@ export const hero = {
    * Versão sem afirmação de prova social, se precisar:
    *   badge: "{{150 Festas na Mesa}} Prontas para Copiar",  badgeStars: 0
    *
-   * O espaço entre "no" e "Brasil" é NÃO-QUEBRÁVEL: em telas muito estreitas
-   * (abaixo de ~360px) a frase ainda quebra, e sem ele a quebra deixaria
-   * "Brasil" sozinho embaixo. Frase mais longa que esta volta a quebrar no
-   * celular — o selo do HeroSection é dimensionado para ~37 caracteres.
+   * Frase mais longa que ~37 caracteres quebra em duas linhas no celular —
+   * o selo do HeroSection é dimensionado para isso.
    */
-  badge: "Aprovado por {{1.847+ pessoas}} no Brasil",
+  // A pedido, trocado por uma frase de BENEFÍCIO (era "Aprovado por
+  // {{1.847+ pessoas}} no Brasil"): diz o ganho em vez de afirmar um número
+  // de clientes. Cabe na pílula (~37 caracteres).
+  badge: "Festa linda {{sem pagar decoradora}}",
   /** Estrelas amarelas do selo. 0 = escondidas (entra um ícone dourado). */
   badgeStars: 5,
   // [[ ]] = número em destaque 1,5x; {{ }} = destaque colorido. Ver <Highlight/>.
@@ -129,7 +130,7 @@ export const hero = {
   // que tem dentro, com exemplos de temas — os mesmos que aparecem na arte.
   // `{{trecho}}` sai em negrito.
   caption:
-    "150 festas na mesa passo a passo: safári, dinossauros, princesa, bosque, fazendinha e muito mais.",
+    "150 festas na mesa passo a passo: safári, dinossauros, princesa e muito mais.",
   cta: "Quero as 150 festas agora",
   /**
    * ENTREGA — única linha abaixo do CTA, com os ícones do WhatsApp e do
