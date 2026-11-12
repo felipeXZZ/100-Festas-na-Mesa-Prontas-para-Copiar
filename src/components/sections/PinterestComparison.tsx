@@ -1,4 +1,5 @@
 import { Check, X } from "lucide-react";
+import type { ReactNode } from "react";
 import { comparison } from "@/content";
 import { Section } from "@/components/Section";
 import { Highlight } from "@/components/Highlight";
@@ -35,73 +36,60 @@ export function PinterestComparison() {
         </p>
       </div>
 
-      <div className="mx-auto mt-12 grid max-w-4xl items-stretch gap-5 md:grid-cols-2 md:gap-6">
-        {/* Antes — juntar referências soltas. Card em TOM VERMELHO (fundo
-            rosado, anel e texto no vermelho da marca): o creme neutro que
-            ficava aqui não dizia nada, só parecia "a outra coluna". Vermelho
-            nomeia o lado como o problema antes mesmo de a visitante ler os
-            itens, e faz par com o azul+dourado do lado certo. */}
+      {/* Cards com emojis, a pedido. Cada item: emoji num quadradinho branco
+          + selinho de ✕ (vermelho) ou ✓ (verde) no canto — o emoji diz DO
+          QUE se trata e o selinho diz se é problema ou solução, então a
+          leitura de semáforo dos dois cards continua valendo. Os emojis vêm
+          de `comparison` no content.ts. */}
+      <div className="relative mx-auto mt-12 grid max-w-4xl items-stretch gap-5 md:grid-cols-2 md:gap-6">
+        {/* Antes — juntar referências soltas. Card em TOM VERMELHO: nomeia o
+            lado como o problema antes mesmo de a visitante ler os itens. */}
         <div className="rounded-3xl bg-danger-vivid/[0.06] p-6 ring-1 ring-danger-vivid/20 sm:p-7">
-          <h3 className="text-lg font-extrabold text-danger sm:text-xl">
-            {comparison.before.title}
-          </h3>
-          <ul className="mt-5 space-y-3.5">
+          <CardHeader
+            tag={comparison.before.tag}
+            emoji={comparison.before.emoji}
+            title={comparison.before.title}
+            tom="ruim"
+          />
+          <ul className="mt-5 space-y-3">
             {comparison.before.items.map((item) => (
-              <li
-                key={item}
-                /* `text-danger` cheio: com /85 sobre o fundo rosado do card o
-                   contraste caía para 4,09:1 e reprovava na WCAG AA. Em 100%
-                   vai a 5,05:1 — o card continua sendo o lado "errado" pela
-                   cor e pelo X, não por texto apagado. */
-                className="flex items-start gap-3 text-[15px] font-semibold leading-snug text-danger"
-              >
-                {/* X vermelho SOLTO e grosso, sem chip atrás. Com o card já
-                    rosado, o quadradinho cheio virava um bloco dentro de outro
-                    bloco da mesma cor; o traço puro marca mais e espelha o
-                    peso do ✅ da coluna certa. */}
-                <X
-                  aria-hidden
-                  className="mt-px size-5 shrink-0 text-danger-vivid"
-                  strokeWidth={4}
-                />
-                {item}
-              </li>
+              <Item key={item.text} emoji={item.emoji} tom="ruim">
+                {item.text}
+              </Item>
             ))}
           </ul>
         </div>
 
-        {/* Depois — escolher um projeto pronto. Card em TOM VERDE (fundo
-            menta, anel e texto no verde da marca), par exato do card vermelho
-            ao lado: a leitura vira semáforo — vermelho é o que ela faz hoje,
-            verde é o que ela passa a ter. Era azul profundo com anel dourado
-            (o card do Plano Completo adiantado); o escuro ganhava a atenção
-            pelo peso, não pelo significado, e brigava com o vermelho novo. */}
-        {/* O card certo tem que PESAR mais que o errado, senão a seção vira
-            duas listas empatadas. O destaque vem todo em verde: menta mais
-            forte que o rosa do card ao lado, anel de 2px no verde do botão de
-            compra e sombra verde por baixo (o mesmo brilho do selo "hoje:
-            grátis"). Nada de escuro nem de dourado — a cor continua sendo o
-            argumento. */}
+        {/* "VS" entre os cards: no celular fica no vão entre um e outro; no
+            desktop, no meio das duas colunas. */}
+        <span
+          aria-hidden
+          className="absolute left-1/2 top-1/2 z-10 hidden size-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-ink text-[0.95rem] font-extrabold text-white shadow-lg ring-4 ring-white md:flex"
+        >
+          VS
+        </span>
+        <span
+          aria-hidden
+          className="-my-7 mx-auto flex size-11 items-center justify-center rounded-full bg-ink text-[0.85rem] font-extrabold text-white shadow-lg ring-4 ring-white md:hidden"
+        >
+          VS
+        </span>
+
+        {/* Depois — escolher um projeto pronto. Card em TOM VERDE, e mais
+            PESADO que o vermelho (menta mais forte, anel de 2px e sombra
+            verde): senão a seção vira duas listas empatadas. */}
         <div className="relative rounded-3xl bg-green/[0.13] p-6 shadow-[0_24px_60px_-26px_rgba(34,180,85,0.75)] ring-2 ring-cta/70 sm:p-7">
-          <h3 className="text-xl font-extrabold text-green-ink sm:text-2xl">
-            {comparison.after.title}
-          </h3>
-          <ul className="mt-5 space-y-3.5">
+          <CardHeader
+            tag={comparison.after.tag}
+            emoji={comparison.after.emoji}
+            title={comparison.after.title}
+            tom="bom"
+          />
+          <ul className="mt-5 space-y-3">
             {comparison.after.items.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 text-base font-bold leading-snug text-green-ink sm:text-[17px]"
-              >
-                {/* Check VERDE SOLTO e grosso, sem chip atrás — espelha o X do
-                    card vermelho. Sobre o menta, o quadradinho cheio virava
-                    bloco dentro de bloco da mesma cor. */}
-                <Check
-                  aria-hidden
-                  className="mt-0.5 size-[22px] shrink-0 text-green-ink"
-                  strokeWidth={4}
-                />
-                {item}
-              </li>
+              <Item key={item.text} emoji={item.emoji} tom="bom">
+                {item.text}
+              </Item>
             ))}
           </ul>
         </div>
@@ -118,5 +106,95 @@ export function PinterestComparison() {
         </CTAButton>
       </div>
     </Section>
+  );
+}
+
+type Tom = "ruim" | "bom";
+
+/** Etiqueta ("do jeito difícil/fácil") + emoji grande + título do card. */
+function CardHeader({
+  tag,
+  emoji,
+  title,
+  tom,
+}: {
+  tag: string;
+  emoji: string;
+  title: string;
+  tom: Tom;
+}) {
+  const bom = tom === "bom";
+  return (
+    <div>
+      <span
+        className={
+          bom
+            ? "inline-block rounded-full bg-cta px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-white"
+            : "inline-block rounded-full bg-danger-vivid/12 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-danger"
+        }
+      >
+        {tag}
+      </span>
+      <h3
+        className={
+          bom
+            ? "mt-3 flex items-center gap-2.5 text-xl font-extrabold leading-tight text-green-ink sm:text-2xl"
+            : "mt-3 flex items-center gap-2.5 text-lg font-extrabold leading-tight text-danger sm:text-xl"
+        }
+      >
+        <span aria-hidden className="text-[1.6em] leading-none">
+          {emoji}
+        </span>
+        {title}
+      </h3>
+    </div>
+  );
+}
+
+/**
+ * Um item da lista: emoji num quadradinho branco com o selinho ✕/✓ no canto.
+ * O texto continua no tom cheio do card (vermelho ou verde) — com opacidade
+ * menor, o vermelho sobre o rosado reprovava no contraste da WCAG AA.
+ */
+function Item({
+  emoji,
+  tom,
+  children,
+}: {
+  emoji: string;
+  tom: Tom;
+  children: ReactNode;
+}) {
+  const bom = tom === "bom";
+  const Selo = bom ? Check : X;
+  return (
+    <li
+      className={
+        bom
+          ? "flex items-center gap-3 text-base font-bold leading-snug text-green-ink sm:text-[17px]"
+          : "flex items-center gap-3 text-[15px] font-semibold leading-snug text-danger"
+      }
+    >
+      <span
+        aria-hidden
+        className={
+          bom
+            ? "relative flex size-10 shrink-0 items-center justify-center rounded-xl bg-white text-[1.25rem] shadow-sm ring-1 ring-cta/25"
+            : "relative flex size-10 shrink-0 items-center justify-center rounded-xl bg-white text-[1.25rem] shadow-sm ring-1 ring-danger-vivid/20"
+        }
+      >
+        {emoji}
+        <span
+          className={
+            bom
+              ? "absolute -bottom-1 -right-1 flex size-[18px] items-center justify-center rounded-full bg-cta ring-2 ring-white"
+              : "absolute -bottom-1 -right-1 flex size-[18px] items-center justify-center rounded-full bg-danger-vivid ring-2 ring-white"
+          }
+        >
+          <Selo className="size-2.5 text-white" strokeWidth={5} />
+        </span>
+      </span>
+      {children}
+    </li>
   );
 }

@@ -528,24 +528,34 @@ export const comparison = {
   subtitle:
     "Pare de salvar fotos de mesas lindas sem saber como montar. Comece com um projeto pronto para a sua mesa.",
   cta: "Quero as mesas prontas",
+  /*
+   * Cada card tem um emoji no título, uma etiqueta curta acima dele ("do
+   * jeito difícil" / "do jeito fácil") e um emoji por item. O emoji fica
+   * num quadradinho branco, com um selinho de ✕ ou ✓ no canto — o emoji
+   * diz DO QUE se trata, e o selinho diz se é problema ou solução.
+   */
   before: {
+    tag: "Do jeito difícil",
+    emoji: "😩",
     title: "Procurar inspiração",
     items: [
-      "dezenas de fotos salvas",
-      "não sabe se cabe na sua mesa",
-      "não sabe o que comprar",
-      "não sabe onde vai cada item",
-      "acaba improvisando no dia",
+      { emoji: "📱", text: "dezenas de fotos salvas" },
+      { emoji: "📏", text: "não sabe se cabe na sua mesa" },
+      { emoji: "🛒", text: "não sabe o que comprar" },
+      { emoji: "🤯", text: "não sabe onde vai cada item" },
+      { emoji: "😰", text: "acaba improvisando no dia" },
     ],
   },
   after: {
+    tag: "Do jeito fácil",
+    emoji: "🎉",
     title: "Escolher um projeto pronto",
     items: [
-      "antes e depois da mesma mesa",
-      "lista com quantidades",
-      "medidas e espaço necessário",
-      "mapa de onde vai cada item",
-      "montagem sem improviso",
+      { emoji: "📸", text: "antes e depois da mesma mesa" },
+      { emoji: "📝", text: "lista com quantidades" },
+      { emoji: "📐", text: "medidas e espaço necessário" },
+      { emoji: "🗺️", text: "mapa de onde vai cada item" },
+      { emoji: "✨", text: "montagem sem improviso" },
     ],
   },
 };
