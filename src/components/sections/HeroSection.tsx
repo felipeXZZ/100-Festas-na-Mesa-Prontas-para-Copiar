@@ -332,7 +332,9 @@ function HeroMockup() {
       data-track-id="hero-mockup-plans"
       data-page-variant={PAGE_VARIANT}
       aria-label="Ver os planos"
-      className="hero-float block"
+      /* Sem `hero-float`: a imagem fica PARADA, a pedido (ela flutuava
+         subindo e descendo). A animação continua no globals.css se voltar. */
+      className="block"
     >
       {/* Sem arquivo (`src` vazio) entra a capa provisória desenhada, no
           mesmo quadrado — ver `hero.mockup` no content.ts. */}
