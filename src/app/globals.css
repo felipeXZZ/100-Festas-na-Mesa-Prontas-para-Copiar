@@ -275,15 +275,20 @@ html.animar .cta-attention::before {
   box-shadow: 0 14px 34px -6px rgba(34, 180, 85, 0.8);
 }
 
-/* Variante RARA do brilho (CTA da hero): passa em ~1s e fica 4s parado —
-   "de vez em quando", em vez do vai e vem constante do cta-shine. */
+/* Variante RARA do brilho (CTA da hero): atravessa o botão em ~1,4s e fica
+   parado o resto do ciclo de 4s — "de vez em quando", em vez do vai e vem
+   constante do cta-shine. A faixa é mais larga e mais clara que a do
+   cta-shine (ver HeroSection): a primeira versão (25% de branco, ~0,5s de
+   travessia) passava tão rápido e tão apagada que parecia não existir.
+   O percurso é medido na largura da própria faixa (40% do botão): sai de
+   -40% e termina além da borda direita. */
 @keyframes cta-shine-raro {
   0% {
     transform: translateX(0) skewX(-20deg);
   }
-  20%,
+  35%,
   100% {
-    transform: translateX(700%) skewX(-20deg);
+    transform: translateX(400%) skewX(-20deg);
   }
 }
 
