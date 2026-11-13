@@ -46,6 +46,7 @@ next-env.d.ts
 # pranchas em tamanho original do carrossel (34MB). Ficam só na sua máquina —
 # o que vai para o ar são as cópias reduzidas geradas por `npm run carrosel`.
 /_originais-carrosel/
+/_originais-hero/
 
 .vercel
 .env*

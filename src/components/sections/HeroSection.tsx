@@ -101,6 +101,9 @@ export function HeroSection() {
               location="hero"
               trackId="hero-plans"
               attention
+              /* Seta para a DIREITA na hero, a pedido (os outros CTAs
+                 continuam com a seta para baixo). */
+              arrowDirection="right"
               /* Brilho "de vez em quando", a pedido: uma faixa larga e clara
                  atravessa o botão em ~1,4s a cada 4s (`cta-shine-raro`,
                  globals.css). Fica parado até o primeiro gesto, como as
@@ -333,8 +336,26 @@ function HeroMockup() {
       aria-label="Ver os planos"
       /* Sem `hero-float`: a imagem fica PARADA, a pedido (ela flutuava
          subindo e descendo). A animação continua no globals.css se voltar. */
-      className="block"
+      /* `isolate` cria a camada própria do card: o brilho e a sombra lá
+         embaixo (z-0) ficam atrás da foto (z-10) sem vazar para a seção. */
+      className="relative isolate block"
     >
+      {/* FUNDO tipo "sombra bonita" da referência: um brilho azul suave
+          atrás dos produtos (creme mais escuro que o da seção, puxado para o
+          bege/caramelo, para dar contraste — já testamos azul forte e um
+          azul mais fraco, e ficou este) e
+          uma sombra oval embaixo, que assenta a foto no chão. Só gradiente,
+          sem `filter: blur` — blur grande em cima da imagem de LCP pesa na
+          pintura do celular. A foto tem fundo transparente: é isso que deixa
+          o brilho aparecer em volta dela. */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-[50%] z-0 h-[165%] w-[150%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(205,183,140,0.6),rgba(219,201,165,0.45)_50%,rgba(232,220,195,0.22)_75%,transparent)]"
+      />
+      <span
+        aria-hidden
+        className="pointer-events-none absolute bottom-[0.5%] left-1/2 z-0 h-[10%] w-[86%] -translate-x-1/2 rounded-[50%] bg-[radial-gradient(closest-side,rgba(26,35,56,0.3),transparent)]"
+      />
       {/* Sem arquivo (`src` vazio) entra a capa provisória desenhada, no
           mesmo quadrado — ver `hero.mockup` no content.ts. */}
       {!hero.mockup.src ? (
@@ -365,7 +386,7 @@ function HeroMockup() {
            49KB → 39KB e 27% menos pixel para decodificar, com 1,7% de
            redução de escala, que não se vê. */
         sizes="(min-width: 1024px) 560px, (min-width: 640px) 520px, 88vw"
-        className="mx-auto h-auto w-full max-w-[560px] object-contain"
+        className="relative z-10 mx-auto h-auto w-full max-w-[560px] object-contain"
       />
       )}
     </a>

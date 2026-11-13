@@ -1,4 +1,4 @@
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CHECKOUT_URL } from "@/content";
 import { PAGE_VARIANT } from "@/lib/track";
@@ -26,6 +26,7 @@ export function CTAButton({
   attention = false,
   shine = true,
   arrow = true,
+  arrowDirection = "down",
   fullWidth = false,
   subline,
   className,
@@ -44,6 +45,8 @@ export function CTAButton({
   shine?: boolean;
   /** mostra a seta à direita (padrão: true). */
   arrow?: boolean;
+  /** para onde a seta aponta (padrão: para baixo, rumo aos planos). */
+  arrowDirection?: "down" | "right";
   /**
    * Segunda linha DENTRO do botão, abaixo do rótulo: menor, em caixa normal e
    * com opacidade reduzida. Serve para a informação que ajuda a decidir o
@@ -105,7 +108,12 @@ export function CTAButton({
       ) : (
         <span className="relative inline-block text-balance">{children}</span>
       )}
-      {arrow && <ArrowDown className="relative size-5 shrink-0" aria-hidden />}
+      {arrow &&
+        (arrowDirection === "right" ? (
+          <ArrowRight className="relative size-5 shrink-0" aria-hidden />
+        ) : (
+          <ArrowDown className="relative size-5 shrink-0" aria-hidden />
+        ))}
     </a>
   );
 }

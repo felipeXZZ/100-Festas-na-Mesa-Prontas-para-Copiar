@@ -93,6 +93,22 @@ export const urgencyBar = {
    */
   deadline: null as string | null,
   countdownLabel: "Termina em",
+  /**
+   * TESTE (a pedido): barra de BLACK FRIDAY no lugar da de "promoção acaba
+   * hoje". Fundo preto, selo amarelo, e embaixo a data do dia (a mesma
+   * urgência "evergreen" de `showTodayDate`, lida no navegador da pessoa),
+   * com uma faixa listrada vermelho/branco na borda de baixo. (A contagem
+   * "Faltam X dias pro Natal" da referência saiu: não fazia sentido numa
+   * oferta de Black Friday.)
+   *
+   * `enabled: false` volta a barra vermelha de sempre (emoji + texto + data).
+   */
+  blackFriday: {
+    enabled: true,
+    tag: "Black Friday",
+    text: "Super desconto",
+    dateBefore: "Desconto válido só hoje,",
+  },
 };
 
 /* ------------------------------------------------------------------ */
@@ -122,7 +138,10 @@ export const hero = {
   // azul em "+150 Festas na Mesa", o resto em preto, e a quebra antes de
   // "para Você Copiar". O traço dourado por baixo segue desligado no
   // HeroSection (prop `underline`).
-  headline: "[[+150]] {{Festas na Mesa}} Prontas\npara Você Copiar",
+  // TESTE de headline (a pedido). A anterior era:
+  //   "[[+150]] {{Festas na Mesa}} Prontas\npara Você Copiar"
+  headline:
+    "[[+150]] {{Festas na Mesa}} que Mais Vendem para Lucrar até {{R$4.000 por Mês}}",
   // A subheadline embaixo do título SAIU a pedido ("Escolha o tema, siga a
   // lista e monte uma festa linda numa mesa só, para o seu filho ou para o seu
   // cliente."). No lugar, uma linha curta LOGO ABAIXO do mockup, que diz o
@@ -130,10 +149,14 @@ export const hero = {
   // `{{trecho}}` sai em negrito.
   // Subheadline logo abaixo do título (voltou a pedido). Fala com os DOIS
   // públicos: quem monta a festa em casa e a decoradora que monta para
-  // clientes. `{{trecho}}` sai em negrito. Precisa caber em DUAS linhas no
-  // celular de 360px (~80 caracteres) — frase mais longa vira três.
+  // clientes. `{{trecho}}` sai em negrito.
+  // Modelo a pedido: "Tenha acesso às 30 peças que mais saem nas encomendas,
+  // do chaveiro… ao dominó…, com as artes já no tamanho certo…" — trecho em
+  // negrito + exemplos do primeiro ao último + o que já vem pronto.
+  // Anterior: "Escolha o tema, siga a lista e monte sem improviso, para o seu
+  // filho ou cliente."
   subheadline:
-    "Escolha o tema, siga a lista e monte sem improviso, para o seu filho ou cliente.",
+    "{{Tenha acesso às 150 festas que mais vendem}}, do safári à princesa, com a lista de compras e o mapa de montagem para copiar na mesa que você já tem.",
   // DESLIGADA a pedido (vazio = some). Era: "150 festas na mesa passo a
   // passo: safári, dinossauros, princesa e muito mais."
   caption: "",
@@ -208,11 +231,14 @@ export const hero = {
    * Arte da nova oferta (1254×1254, fundo transparente). Com `src` vazio a
    * página desenha a capa provisória (ProductCover.tsx) no mesmo quadrado.
    */
+  // Foto nova (13/11), com fundo transparente — o brilho creme atrás dela é
+  // desenhado no HeroSection. Original em _originais-hero/ (fora do ar).
+  // Anterior: /mockup-hero-150-festas-v3.webp (1254×1254).
   mockup: {
-    src: "/mockup-hero-150-festas-v3.webp",
-    width: 1254,
-    height: 1254,
-    alt: "Guia +150 Festas na Mesa Prontas para Você Copiar: capa, páginas de temas, bônus e versão no celular",
+    src: "/hero-150-festas-mesa.webp",
+    width: 1442,
+    height: 1079,
+    alt: "Decoradora sorrindo com o guia +150 Festas na Mesa no notebook e no livro, os guias de bônus e uma mesa de festa decorada",
   },
 };
 

@@ -50,6 +50,40 @@ export function UrgencyBar() {
   // (Versão anterior: `bg-purple-ink`, azul da marca.)
   // Já testamos o azul do headline (`bg-purple-ink`) e voltou ao vermelho
   // a pedido.
+  const bf = urgencyBar.blackFriday;
+  if (bf.enabled) {
+    return (
+      <div
+        ref={barRef}
+        aria-hidden={!show}
+        className={`sticky top-0 z-50 w-full bg-[#121212] text-white shadow-sm transition-transform duration-300 ${
+          show ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-1 px-4 py-2 text-center">
+          <p className="flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-wide sm:text-[13px]">
+            {/* Selo amarelo da Black Friday: texto preto sobre o dourado
+                da marca, o contraste mais alto possível no fundo escuro. */}
+            <span className="rounded-full bg-gold px-3 py-0.5 text-ink">
+              {bf.tag}
+            </span>
+            <span>{bf.text}</span>
+          </p>
+          <p className="flex items-center gap-1.5 text-[12px] font-semibold sm:text-[13px]">
+            {bf.dateBefore}
+            <TodayDate className="rounded-md bg-danger-vivid px-2 py-px font-extrabold tabular-nums" />
+          </p>
+        </div>
+        {/* Faixa listrada vermelho/branco na borda de baixo — só gradiente,
+            sem imagem. */}
+        <div
+          aria-hidden
+          className="h-1.5 w-full bg-[repeating-linear-gradient(-45deg,#E01B24_0_8px,#ffffff_8px_16px)]"
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       ref={barRef}
