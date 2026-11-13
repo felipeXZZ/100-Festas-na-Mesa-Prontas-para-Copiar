@@ -156,7 +156,10 @@ export const hero = {
   // Anterior: "Escolha o tema, siga a lista e monte sem improviso, para o seu
   // filho ou cliente."
   subheadline:
-    "{{Tenha acesso às 150 festas que mais vendem}}, do safári à princesa, com a lista de compras e o mapa de montagem para copiar na mesa que você já tem.",
+    // Encurtada a pedido: a versão longa ("…do safári à princesa, com a lista
+    // de compras e o mapa de montagem para copiar na mesa que você já tem")
+    // quebrava em 4 linhas no celular.
+    "{{Acesse as 150 festas que mais vendem}}, com lista de compras e mapa de montagem.",
   // DESLIGADA a pedido (vazio = some). Era: "150 festas na mesa passo a
   // passo: safári, dinossauros, princesa e muito mais."
   caption: "",
