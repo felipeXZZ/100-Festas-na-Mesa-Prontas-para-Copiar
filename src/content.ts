@@ -234,14 +234,14 @@ export const hero = {
    * Arte da nova oferta (1254×1254, fundo transparente). Com `src` vazio a
    * página desenha a capa provisória (ProductCover.tsx) no mesmo quadrado.
    */
-  // Foto nova (13/11), com fundo transparente — o brilho creme atrás dela é
-  // desenhado no HeroSection. Original em _originais-hero/ (fora do ar).
-  // Anterior: /mockup-hero-150-festas-v3.webp (1254×1254).
+  // Voltou o mockup anterior, a pedido. A foto testada em 13/11 (decoradora
+  // com o guia no notebook) continua em /public/hero-150-festas-mesa.webp
+  // (1442×1079) e o original em _originais-hero/.
   mockup: {
-    src: "/hero-150-festas-mesa.webp",
-    width: 1442,
-    height: 1079,
-    alt: "Decoradora sorrindo com o guia +150 Festas na Mesa no notebook e no livro, os guias de bônus e uma mesa de festa decorada",
+    src: "/mockup-hero-150-festas-v3.webp",
+    width: 1254,
+    height: 1254,
+    alt: "Guia +150 Festas na Mesa Prontas para Você Copiar: capa, páginas de temas, bônus e versão no celular",
   },
 };
 
