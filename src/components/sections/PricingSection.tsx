@@ -10,8 +10,7 @@ import {
   X,
   Zap,
 } from "lucide-react";
-import { plans, bonuses, CHECKOUT_URL } from "@/content";
-import { BasicCtaWithUpsell } from "@/components/UpsellPopup";
+import { plans, bonuses, CHECKOUT_URL, BASIC_CHECKOUT_URL } from "@/content";
 import { Eyebrow } from "@/components/Eyebrow";
 import { TodayDate } from "@/components/TodayDate";
 import { Highlight } from "@/components/Highlight";
@@ -26,7 +25,7 @@ const assuranceIcons = {
 };
 
 /**
- * 10. PLANOS — Básico (50 projetos) e Completo (150 projetos + 5 bônus).
+ * 10. PLANOS — Básico (150 projetos) e Completo (150 projetos + 5 bônus).
  * Preços em src/offer.ts.
  *
  * O Básico vem primeiro de propósito: ele estabelece a âncora barata e o
@@ -63,9 +62,19 @@ export function PricingSection() {
               </p>
             </div>
 
-            {/* Não vai direto ao checkout: abre o popup que oferece o Plano Completo
-                com os 5 bônus por PRICES.upsell. Recusar leva ao Básico normalmente. */}
-            <BasicCtaWithUpsell label={plans.basic.cta} />
+            {/* Vai DIRETO ao checkout do Básico, a pedido — o popup de upsell
+                que abria neste clique saiu (`BasicCtaWithUpsell` continua no
+                UpsellPopup.tsx se precisar voltar). Mesmo visual do botão de
+                antes; `plan-basic` mantém o rastreamento do clique. */}
+            <a
+              href={BASIC_CHECKOUT_URL}
+              data-cta-location="plan-basic"
+              data-track-id="basic-checkout"
+              data-page-variant={PAGE_VARIANT}
+              className="mt-6 flex min-h-[54px] w-full items-center justify-center rounded-2xl bg-cta px-6 py-3.5 text-center font-cta text-[0.95rem] uppercase leading-tight tracking-wide text-white shadow-[0_8px_20px_-8px_rgba(34,180,85,0.55)] transition hover:-translate-y-0.5 hover:brightness-110 sm:text-[1rem]"
+            >
+              {plans.basic.cta}
+            </a>
 
             <ul className="mt-6 flex-1 space-y-2.5">
               {plans.basic.features.map((f) => (

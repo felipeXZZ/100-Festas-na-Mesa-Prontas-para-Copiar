@@ -1,6 +1,6 @@
 /* =====================================================================
  *  CONTEÚDO DA LANDING PAGE — "150 Festas na Mesa Prontas para Copiar"
- *  Básico R$ 5,99 (50 projetos) · Completo R$ 19,90 (150 projetos + 5 bônus)
+ *  Básico R$ 5,99 (150 projetos) · Completo R$ 19,90 (150 projetos + 5 bônus)
  *  Popup: uma tela só. Preços e checkout: src/offer.ts
  * =====================================================================
  *  Este é o ÚNICO arquivo que você precisa editar para trocar textos,
@@ -865,7 +865,9 @@ export const plans = {
   title: "Escolha a opção {{ideal para você}}",
   basic: {
     name: "Pacote Básico",
-    tagline: "Para quem quer começar com 50 festas na mesa.",
+    // A pedido, o Básico passou a ter as 150 festas (era 50): a diferença
+    // para o Completo agora são só os 5 bônus.
+    tagline: "As 150 festas na mesa, sem os bônus.",
     /**
      * Mockup dentro do card, entre a chamada e o preço — é a MESMA arte da
      * hero de propósito: quem rolou a página inteira reencontra o produto que
@@ -877,7 +879,7 @@ export const plans = {
       src: "",
       width: 1254,
       height: 1254,
-      alt: "Capa do guia com 50 Festas na Mesa Prontas para Copiar",
+      alt: "Capa do guia com 150 Festas na Mesa Prontas para Copiar",
     },
     /** ⚠️ PENDENTE: preço "de" riscado herdado da oferta anterior — confirmar. */
     priceFrom: "De R$67",
@@ -893,7 +895,7 @@ export const plans = {
      * Básico funcionar como âncora em vez de concorrer com o Completo.
      */
     features: [
-      { text: "50 Festas na Mesa Prontas para Copiar", included: true },
+      { text: "150 Festas na Mesa Prontas para Copiar", included: true },
       { text: "Guia digital com acesso imediato", included: true },
     ],
     nudge: "Espera: há uma opção muito mais completa logo abaixo",
@@ -966,7 +968,7 @@ export const plans = {
  * por DOIS caminhos — no clique do plano Básico e sozinho (tempo no site /
  * intenção de saída, ver `upsellAuto`).
  *  - aceitar  → UPSELL_CHECKOUT_URL (PRICES.upsell)
- *  - recusar  → BASIC_CHECKOUT_URL (PRICES.basic, só 50 projetos)
+ *  - recusar  → BASIC_CHECKOUT_URL (PRICES.basic, 150 projetos sem bônus)
  *  - FECHAR   → encerra o popup e devolve a pessoa à página
  *
  * É uma tela SÓ. Já houve um segundo degrau aqui duas vezes: R$ 19,00 caindo
@@ -994,7 +996,9 @@ export const upsell = {
    * Primeira linha da lista, antes dos bônus: as festas que faltam no Básico
    * (150 − 50). Texto vazio tira a linha.
    */
-  missingProjects: "+100 Festas na Mesa (total de 150)",
+  // Vazio: desde que o Básico passou a ter as 150 festas, ele só não tem os
+  // bônus. Era "+100 Festas na Mesa (total de 150)".
+  missingProjects: "",
   /**
    * Caixa verde: a diferença para o Básico (PRICES.upsell − PRICES.basic).
    */
@@ -1114,7 +1118,7 @@ export const faq = {
     },
     {
       q: "Qual a diferença entre o Básico e o Completo?",
-      a: "Básico: 50 projetos. Completo: os 150 projetos + 5 bônus.",
+      a: "Básico: as 150 festas. Completo: as 150 festas + 5 bônus.",
     },
   ],
 };
