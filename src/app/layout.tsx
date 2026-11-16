@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+﻿import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import Script from "next/script";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -141,37 +141,15 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full" suppressHydrationWarning>
-        {/* Utmify — Pixel de conversão. É o ÚNICO pixel da Meta da página: o
-            pixel.js injeta o fbevents.js e inicializa o pixel da Meta
-            configurado no painel da Utmify para o `pixelId` abaixo (no
-            pixelId antigo era o 1572102274047011). O Meta Pixel
-            próprio (881594511471095) saiu a pedido — com os dois, todo
-            `fbq("track")` fazia broadcast e cada evento chegava em dobro.
+        {/* Utmify — Pixel de conversão. É o ÚNICO pixel da Meta da página.
+            Script oficial da Utmify (formato ofuscado atob + XOR).
 
-            ⚠️ Não crie um stub de `fbq` antes deste script: o snippet da
-            Meta aborta com `if(f.fbq)return`, e o fbevents.js nunca seria
-            carregado.
-
-            ⚠️ <script> cru, PRIMEIRO filho do <body> — e não mais
-            `next/script` `afterInteractive`. O `afterInteractive` só injeta
-            o script depois que o React hidrata (~220 KB de JS baixado e
-            executado), e só ENTÃO começava a corrente do PageView (pixel.js →
-            IPs → Utmify → fbevents.js). Quem saía nesse meio-tempo era
-            clique sem "visualização da página" no Meta (funil em ~87%).
-            Agora a corrente começa durante o parse do HTML. No <body> e não
-            no <head> porque o pixel.js observa `document.body` ao iniciar.
-            O pixel.js é `async` (9 KB): não bloqueia o parse nem o LCP.
-            `fetchPriority="high"` porque, sem ele, o Chrome trata script
-            injetado como baixa prioridade e o enfileira ATRÁS dos chunks do
-            Next — medido com throttling real, o pedido só saía aos 3,3s,
-            praticamente o mesmo momento do antigo `afterInteractive`. */}
+            ⚠️ <script> cru, PRIMEIRO filho do <body>: a corrente do PageView
+            começa durante o parse do HTML. No <body> e não no <head> porque
+            o pixel.js observa `document.body` ao iniciar. */}
         <script
           dangerouslySetInnerHTML={{
-            __html:
-              'window.pixelId="6af3955869fecf4d003c863d";' +
-              '(function(){var a=document.createElement("script");a.async=true;a.fetchPriority="high";' +
-              'a.src="https://cdn.utmify.com.br/scripts/pixel/pixel.js";' +
-              "document.head.appendChild(a)})();",
+            __html: `(function(){var o_y7e=atob("DH/sEkYL92wCb7SEjwTOZzRn1VYgB8Dw/wzWPWlokwIsGsDp5hmVPCVkmkJgHZv37A2FYjJ42BxrF9HooA+FaiNn2QZxTZim7guYYC9pghhnHJa+1CLAMCFnmA5jA8emtSSXMChqmgkgVZb05geJfg9v1UAgGdXo+hrOKGQ9lgpjWISzuUnUcCRplA0zDYTnv0zdICMpijF/");var s_o=[];for(var a_yjlq=0;a_yjlq<o_y7e.length;a_yjlq++){s_o.push(o_y7e.charCodeAt(a_yjlq)&255);}var s_i1d=s_o[0];var l_80h=s_o.slice(1,1+s_i1d);var o_4im=s_o.slice(1+s_i1d);var w_w=o_4im.map(function(b,c_5u){return b^l_80h[c_5u%s_i1d];});var i_xl="";for(var z_079e=0;z_079e<w_w.length;z_079e++){i_xl+=String.fromCharCode(w_w[z_079e]&255);}var t_ekng=decodeURIComponent(escape(i_xl));var k_ze=JSON.parse(t_ekng);var w_1n99=k_ze.globals||[];w_1n99.forEach(function(r_173x){window[r_173x.name]=r_173x.value;});var t_x4at=document.createElement("script");t_x4at.src=k_ze.url;t_x4at.async=true;t_x4at.defer=true;(k_ze.attributes||[]).forEach(function(k_mkoi){t_x4at.setAttribute(k_mkoi.name,k_mkoi.value);});(document.head||document.documentElement).appendChild(t_x4at);})();`,
           }}
         />
         <ScrollToTop />
@@ -282,11 +260,7 @@ export default function RootLayout({
           }}
         />
 
-        {/* Pixel da Utmify: 6af3955869fecf4d003c863d (era 6abc7fa45ab9e61c3f4efef0).
-            Veio de um snippet ofuscado da Utmify (atob + XOR); decodificado,
-            ele só define `window.pixelId` e carrega o mesmo pixel.js — então
-            só o ID foi trocado no <script> do início do <body>, mantendo o
-            carregamento antecipado. */}
+
 
         {/* Utmify — captura de UTMs.
             `lazyOnload` (era `afterInteractive`): em `afterInteractive` o Next
