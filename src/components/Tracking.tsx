@@ -7,7 +7,7 @@ import { trackEvent, trackCtaClick, withUtms } from "@/lib/track";
 // ⚠️ Se o checkout mudar de domínio, ESTA linha tem que mudar junto: é ela que
 // libera a reescrita das UTMs e o checkout_redirect no clique. Errada, o funil
 // perde a atribuição sem dar nenhum erro visível.
-const CHECKOUT_HOST = "pay.wiapy.com";
+const CHECKOUT_HOST = "ggcheckout.app";
 
 /**
  * Rastreamento central (montado uma vez no layout):
