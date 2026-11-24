@@ -1,6 +1,6 @@
 /* =====================================================================
  *  CONTEÚDO DA LANDING PAGE — "150 Festas na Mesa Prontas para Copiar"
- *  Básico R$ 5,99 (150 projetos) · Completo R$ 19,99 (150 projetos + 5 bônus)
+ *  Básico R$ 10,99 (150 projetos) · Completo R$ 27,90 (150 projetos + 5 bônus)
  *  Popup: uma tela só. Preços e checkout: src/offer.ts
  * =====================================================================
  *  Este é o ÚNICO arquivo que você precisa editar para trocar textos,
@@ -1002,7 +1002,12 @@ export const upsell = {
   /**
    * Caixa verde: a diferença para o Básico (PRICES.upsell − PRICES.basic).
    */
-  upgradeLine: `Por apenas + R$ ${reais(PRICES.upsell - PRICES.basic)}, destrave o`,
+  // Com o popup custando o MESMO que o Básico (ou menos), "+ R$ 0,00" não faz
+  // sentido — a frase troca sozinha para "pelo mesmo preço".
+  upgradeLine:
+    PRICES.upsell > PRICES.basic
+      ? `Por apenas + R$ ${reais(PRICES.upsell - PRICES.basic)}, destrave o`
+      : "Pelo mesmo preço do Básico, destrave o",
   upgradeName: "Pacote Completo",
   /** O valor dos bônus é anexado a esta frase, vindo de `bonuses.totalValue`. */
   upgradeNote: "150 festas + 5 bônus (valem",

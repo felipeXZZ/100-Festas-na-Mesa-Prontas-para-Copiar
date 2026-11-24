@@ -18,10 +18,10 @@ export const OFFER_NAME = "150 Festas na Mesa Prontas para Copiar";
  * partir daqui com `brl()`/`reais()`.
  */
 export const PRICES = {
-  /** Pacote Básico — 50 projetos. ✅ Confirmado: preço principal. */
-  basic: 5.99,
+  /** Pacote Básico — 150 projetos, sem bônus. ✅ Confirmado: preço principal. */
+  basic: 10.99,
   /** Pacote Completo — 150 projetos + 5 bônus. ✅ Confirmado. */
-  premium: 19.99,
+  premium: 27.9,
   /** Popup de upsell — Completo com desconto. ✅ Confirmado. */
   upsell: 10.99,
 };
@@ -42,11 +42,11 @@ export const brl = (v: number) => `R$${reais(v)}`;
  * deixam de ser enviados no clique.
  */
 
-/** Pacote Completo — R$ 19,99 (PRICES.premium). */
+/** Pacote Completo — R$ 27,90 (PRICES.premium). */
 export const CHECKOUT_URL =
   "https://ggcheckout.app/checkout/v5/mIRsaapMHDN8AeqSiOGw";
 
-/** Pacote Básico — R$ 5,99 (PRICES.basic). */
+/** Pacote Básico — R$ 10,99 (PRICES.basic). */
 export const BASIC_CHECKOUT_URL =
   "https://ggcheckout.app/checkout/v5/u8hInnL0pgjnbb12d0Qb";
 
