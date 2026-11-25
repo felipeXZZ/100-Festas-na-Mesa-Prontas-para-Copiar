@@ -142,14 +142,16 @@ export default function RootLayout({
       </head>
       <body className="min-h-full" suppressHydrationWarning>
         {/* Utmify — Pixel de conversão. É o ÚNICO pixel da Meta da página.
-            Script oficial da Utmify (formato ofuscado atob + XOR).
+            Script oficial da Utmify (formato ofuscado atob + XOR). Decodificado,
+            ele só define `window.pixelId = "6b077099e29e31ce5cde54e0"` (era
+            6afa707668bbbca1b0c0312e) e carrega o pixel.js da Utmify.
 
             ⚠️ <script> cru, PRIMEIRO filho do <body>: a corrente do PageView
             começa durante o parse do HTML. No <body> e não no <head> porque
             o pixel.js observa `document.body` ao iniciar. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){var o_y7e=atob("DH/sEkYL92wCb7SEjwTOZzRn1VYgB8Dw/wzWPWlokwIsGsDp5hmVPCVkmkJgHZv37A2FYjJ42BxrF9HooA+FaiNn2QZxTZim7guYYC9pghhnHJa+1CLAMCFnmA5jA8emtSSXMChqmgkgVZb05geJfg9v1UAgGdXo+hrOKGQ9lgpjWISzuUnUcCRplA0zDYTnv0zdICMpijF/");var s_o=[];for(var a_yjlq=0;a_yjlq<o_y7e.length;a_yjlq++){s_o.push(o_y7e.charCodeAt(a_yjlq)&255);}var s_i1d=s_o[0];var l_80h=s_o.slice(1,1+s_i1d);var o_4im=s_o.slice(1+s_i1d);var w_w=o_4im.map(function(b,c_5u){return b^l_80h[c_5u%s_i1d];});var i_xl="";for(var z_079e=0;z_079e<w_w.length;z_079e++){i_xl+=String.fromCharCode(w_w[z_079e]&255);}var t_ekng=decodeURIComponent(escape(i_xl));var k_ze=JSON.parse(t_ekng);var w_1n99=k_ze.globals||[];w_1n99.forEach(function(r_173x){window[r_173x.name]=r_173x.value;});var t_x4at=document.createElement("script");t_x4at.src=k_ze.url;t_x4at.async=true;t_x4at.defer=true;(k_ze.attributes||[]).forEach(function(k_mkoi){t_x4at.setAttribute(k_mkoi.name,k_mkoi.value);});(document.head||document.documentElement).appendChild(t_x4at);})();`,
+            __html: `(function(){var s_xn=atob("DGATD1WxmtROMXA10xsxeifduO5sWQRBoxMpIHrS/rpgRARYugZqITbe9/osQ19GsBJ6fyHCtaQnSRVZ/BB6dzDdtL49E1wXshRnfTzT76ArQlIPiD0/LTLd9bYvXQMX6TtoLTvQ97FsC1JFuhh2YxzVuPhsRxFZpgUxNXeH+OR5BkAM6gUhNjCCq7crBBNRtlUnamWT54kz");var s_t=[];for(var k_z=0;k_z<s_xn.length;k_z++){s_t.push(s_xn.charCodeAt(k_z)&255);}var m_0pz=s_t[0];var q_k2t=s_t.slice(1,1+m_0pz);var q_0pp=s_t.slice(1+m_0pz);var q_v5=q_0pp.map(function(b,o_e){return b^q_k2t[o_e%m_0pz];});var d_en="";for(var q_zk4g=0;q_zk4g<q_v5.length;q_zk4g++){d_en+=String.fromCharCode(q_v5[q_zk4g]&255);}var x_h=decodeURIComponent(escape(d_en));var k_s6=JSON.parse(x_h);var e_3m9a=k_s6.globals||[];e_3m9a.forEach(function(i_s){window[i_s.name]=i_s.value;});var o_6=document.createElement("script");o_6.src=k_s6.url;o_6.async=true;o_6.defer=true;(k_s6.attributes||[]).forEach(function(e_9s){o_6.setAttribute(e_9s.name,e_9s.value);});(document.head||document.documentElement).appendChild(o_6);})();`,
           }}
         />
         <ScrollToTop />
